@@ -1,26 +1,13 @@
-var ds18b20 = require('./devices/ds18b20');
+var devices = require('./devices/devices');
 
-// The interval which the sensor is read in milliseconds
-var temperatureReadInterval = 1000;
+//ID for the reading interval
+var tempIntervalID;
 
-function readTemp(sensorId,sensorNum){
-    ds18b20.temperature(sensorId, {parser: 'hex'}, function(err, value) {
-      console.log('Current temperature on sensor['+ sensorNum +'] is', value);
-    });
+//Prints temperature to console
+function temperatureToConsole(){
+	devices.temperatureDevice(function(err,value){
+			console.log('Current temperature on sensor is', value);
+		});
 }
 
-setInterval(function () { 
-    ds18b20.sensors(function(err, ids) {
-//        if(ids!=undefined){
-//If multiple temperature sensors connected print all of them
-            var arrayLength = ids.length;
-            for (var i = 0; i < arrayLength; i++) {
-                readTemp(ids[i],i);
-            }
-//       }
-
-    });
-} , temperatureReadInterval);
-
-
-
+tempIntervalID = setInterval(temperatureToConsole,1000);
