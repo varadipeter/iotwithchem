@@ -2,8 +2,8 @@
 
 let path = require('path'),
     mongoose = require('mongoose'),
-	Temperature = require(path.resolve('./models/temperature.js')),
-    Alive = require(path.resolve('./models/alive.js'))
+	Temperature = require(path.resolve('./backend/models/temperature.js')),
+    Alive = require(path.resolve('./backend/models/alive.js'))
 
 function createTemperatureMessage(rid,sid,tv,td,_callback){
 var t = new Temperature({  

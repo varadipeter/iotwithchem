@@ -1,5 +1,7 @@
 var devices = require('./devices/devices');
-var db = require('./models/uploadData');
+var cpuinfo = require('./devices/cpuinfo')();
+var serialNumber = cpuinfo['Serial'] == undefined ? -1 : cpuinfo['Serial'][0];
+var db = require('../models/uploadData');
 var datetime = require('node-datetime');
 var mongoose = require('mongoose');
 //ID for the reading interval
@@ -18,6 +20,7 @@ if (err) console.log("erros:"+err);
 //Prints temperature to console
 function temperatureToConsole(){
 	devices.temperatureDevice(function(err,value){
+			console.log('Raspberry -',serialNumber);
 			console.log('Current temperature on sensor is', value);
             db.createTemperatureMessage('1234','987',value,'2016',function(err){
             if (err) console.log(err);            
