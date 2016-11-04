@@ -4,8 +4,6 @@ var serialNumber = cpuinfo['Serial'] == undefined ? -1 : cpuinfo['Serial'][0];
 var db = require('../models/uploadData');
 var datetime = require('node-datetime');
 var mongoose = require('mongoose');
-//ID for the reading interval
-var tempIntervalID;
 
 mongoose.connection.on('error', (error) => {
   console.log('Could not connect to mongo server!')
@@ -22,7 +20,7 @@ function temperatureToConsole(){
 	devices.temperatureDevice(function(err,value){
 			console.log('Raspberry -',serialNumber);
 			console.log('Current temperature on sensor is', value);
-            db.createTemperatureMessage('1234','987',value,'2016',function(err){
+            db.createTemperatureMessage(serialNumber,'1',value,new Date(),function(err){
             if (err) console.log(err);            
             });
 		});
@@ -30,7 +28,7 @@ function temperatureToConsole(){
 
 function IsAlive(){
 var d = new Date();;
-db.createAliveMessage('1234',d,function(err){
+db.createAliveMessage(serialNumber,d,function(err){
             if (err) console.log(err);            
             });
 console.log('alive');
