@@ -1,4 +1,3 @@
-// Please for review : added the comment by LB
 var ds18b20 = require('./ds18b20');
 
 function temperatureDevice(_callback)
