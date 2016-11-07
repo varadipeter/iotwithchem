@@ -23,7 +23,7 @@
     app.get('/getsensorids', (request, response) => {
       
       var _sensorids = new Set();
-      Temperature.find([] ,(error, sensors) => {
+      Temperature.find({},'-_id -__v' ,(error, sensors) => {
         if (error) { response.send(error) }
         sensors.forEach(function(item) {
            _sensorids.add(item.sensorid) 
@@ -39,7 +39,7 @@
       var sensorid = request.param('sensorid');  
       if (typeof sensorid === 'undefined') sensorid = '1';
 
-      Temperature.find((error, temperatures) => {
+      Temperature.find({},'-_id -__v',(error, temperatures) => {
         if (error) { response.send(error) }
         response.json(temperatures[temperatures.length-1]);       
       }).where('sensorid').equals(sensorid);    
