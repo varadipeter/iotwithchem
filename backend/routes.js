@@ -1,25 +1,17 @@
   'use strict'
 
   let path = require('path'),
-      mongoose = require('mongoose'),
-      User = require(path.resolve('backend/models/users.js')),
+      mongoose = require('mongoose'),      
     Temperature = require(path.resolve('backend/models/temperature.js')),
     Alive = require(path.resolve('backend/models/alive.js'))
     
   var tempvalue;
-  var temp	
+  var temp;
+  var lastAliveDate = 0;
+  var raspiAlive = false;
 
   module.exports = (app) => {
-    app.get('/users', (request, response) => {
     
-      User.find((error, users) => {
-        if (error) { response.send(error) }
-
-        response.json(users)
-      })
-    })
-    
-
     app.get('/getsensorids', (request, response) => {
       
       var _sensorids = new Set();
@@ -51,8 +43,8 @@
     
       Alive.find((error, alivedata) => {
         if (error) { response.send(error) }
-
-        response.json(alivedata[alivedata.length-1])
+        var respJson = JSON.parse('{"alive":'+raspiAlive+'}');
+        response.json({alive : raspiAlive})
       })
     })
     
@@ -62,3 +54,18 @@
     });
   }
 
+function pulseMeter(){
+  Alive.find((error, alivedata) => {
+    var currentLastDate = alivedata[alivedata.length-1].alivedate;
+      console.log('raspiAlive-',raspiAlive);
+      console.log(currentLastDate,lastAliveDate);
+    if(lastAliveDate != 0 && lastAliveDate != currentLastDate){
+      raspiAlive = true;
+    }else{
+      raspiAlive = false;
+    }
+    lastAliveDate = currentLastDate;
+  });
+}
+
+setInterval(function () { pulseMeter();},5000);

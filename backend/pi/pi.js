@@ -20,18 +20,18 @@ function temperatureToConsole(){
 	devices.temperatureDevice(function(err,value){
 			console.log('Raspberry -',serialNumber);
 			console.log('Current temperature on sensor is', value);
-            db.createTemperatureMessage(serialNumber,'1',value,new Date(),function(err){
+            db.createTemperatureMessage(serialNumber,'1',value,new Date().getTime(),function(err){
             if (err) console.log(err);            
             });
 		});
 }
 
 function IsAlive(){
-var d = new Date();;
+var d = new Date().getTime();
 db.createAliveMessage(serialNumber,d,function(err){
             if (err) console.log(err);            
             });
-console.log('alive');
+console.log('Alive -',d);
 }
 setInterval(IsAlive,3000);
 
