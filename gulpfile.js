@@ -45,7 +45,7 @@ gulp.task('unit-test', (done) => {
 })
 
 gulp.task('lint', () => {
-	return gulp.src(['backend/**/*.js', 'frontend/**/*.js', '!frontend/build/**/*.js', 'test/**/*.js', '!test/coverage/**/*.js'])
+	return gulp.src(['./*.js', 'frontend/**/*.js', '!frontend/build/**/*.js', 'test/**/*.js', '!test/coverage/**/*.js'])
              .pipe(eslint())
              .pipe(eslint.format())
              .pipe(eslint.failAfterError())
