@@ -1,5 +1,5 @@
 (() => {
-    angular.module('kemia-app', [
-      'ui.router'
-    ])
-})();
+	angular.module('kemia-app', [
+		'ui.router'
+	])
+})()
