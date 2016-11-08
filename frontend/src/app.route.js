@@ -35,5 +35,12 @@
 
 		$stateProvider.state(helloState)
 		$stateProvider.state(aboutState)
+		$stateProvider.state(researchState)
+
+		$urlRouterProvider.otherwise('/')
+		$locationProvider.html5Mode({
+			enabled: true,
+			requireBase: false
+		})
 	}
 })()
