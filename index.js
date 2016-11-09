@@ -20,7 +20,9 @@ mongoose.connection.on('error', (error) => {
 })
 
 // connect to database on mongolab
-mongoose.connect('mongodb://votiv:votiv@ds031257.mlab.com:31257/kemia-db')
+mongoose.connect('mongodb://heroku_hww55rc1:2ic4cjhncvmlse83a21lnejpru@ds139187.mlab.com:39187/heroku_hww55rc1',function(err) {
+    if (err) console.log("erros:"+err);
+}); //('mongodb://votiv:votiv@ds031257.mlab.com:31257/kemia-db')
 
 // routing
 require('./backend/routes')(app)
