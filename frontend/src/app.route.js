@@ -13,12 +13,6 @@
 			controllerAs: 'hc'
 		}
 
-		var aboutState = {
-			name: 'about',
-			url: '/about',
-			template: '<h3>About page</h3>'
-		}
-
 		var researchState = {
 			name: 'research',
 			url: '/research',
@@ -34,7 +28,6 @@
 		})
 
 		$stateProvider.state(helloState)
-		$stateProvider.state(aboutState)
 		$stateProvider.state(researchState)
 
 		$urlRouterProvider.otherwise('/')
