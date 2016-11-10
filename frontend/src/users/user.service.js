@@ -1,26 +1,26 @@
 (() => {
-  angular.module('kemia-app')
+	angular.module('kemia-app')
          .factory('usersFactory', usersFactory)
 
-  usersFactory.$inject = ['$http']
+	usersFactory.$inject = ['$http']
 
-  function usersFactory($http) {
-    return {
-      getUsers: getUsers
-    }
+	function usersFactory($http) {
+		return {
+			getUsers: getUsers
+		}
 
-    function getUsers() {
-      return $http.get('/users')
+		function getUsers() {
+			return $http.get('/users')
                   .then(getUsersComplete)
                   .catch(getUsersError)
-    }
+		}
 
-    function getUsersComplete(response) {
-      return response.data;
-    }
+		function getUsersComplete(response) {
+			return response.data
+		}
 
-    function getUsersError(error) {
-      console.log('An error occured while getting the users: ', error);
-    }
-  }
+		function getUsersError(error) {
+			console.error('An error occured while getting the users: ', error)
+		}
+	}
 })()
