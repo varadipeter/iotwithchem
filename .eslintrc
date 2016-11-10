@@ -16,7 +16,10 @@
         "exports": true,
         "process": true,
         "__dirname": true,
-        "console": true
+        "console": true,
+        "element": true,
+        "by": true,
+         "setInterval", true
       },
     "extends": "eslint:recommended",
     "parserOptions": {

@@ -2,14 +2,13 @@
 	angular.module('kemia-app')
          .controller('HomeController', HomeController)
 
-	HomeController.$inject = ['$scope', 'usersFactory']
+	HomeController.$inject = ['usersFactory']
 
-	function HomeController($scope, usersFactory) {
+	function HomeController(usersFactory) {
 		let hc = this
 		hc.users = []
 
-		getUsers().then(() => {
-		})
+		getUsers()
 
 		function getUsers() {
 			return usersFactory.getUsers()
