@@ -38,6 +38,10 @@ function getTemperatureInterval(sensorid,datefrom,dateto,_callback){
 function getPulse(_callback){
     
 	Alive.find((error, alivedata) => {
+		console.log(alivedata.length);
+		if(alivedata.length == 0){
+			return(_callback(false))
+		}
 		var currentLastDate = alivedata[alivedata.length-1].alivedate
 		if(lastAliveDate != 0 && lastAliveDate != currentLastDate){
 			lastAliveDate = currentLastDate
