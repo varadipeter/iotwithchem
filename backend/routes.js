@@ -56,8 +56,6 @@ module.exports = (app) => {
 	})
 }
 
-
-
 setInterval(() => {
 	db.getPulse((returndata) => {
 		raspiAlive = returndata

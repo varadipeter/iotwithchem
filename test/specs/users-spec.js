@@ -7,7 +7,7 @@ describe('alive', () => {
 	it('If it is alive', () => {
 		let alive = new Res({ 'raspberryid':'1','alivedate':'4:0302' })
 		expect(alive.raspberryid).toEqual('1'),
-		expect(alive.alivedate).not.toBeNull()
+    expect(alive.alivedate).not.toBeNull()
 
 		if (alive.alivedate != null)
     {
