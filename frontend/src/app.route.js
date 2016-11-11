@@ -19,6 +19,14 @@
 			template: '<h3>About page</h3>'
 		}
 
+		var researchState = {
+			name: 'research',
+			url: '/research',
+			templateUrl: 'frontend/src/research/research.html',
+			controller: 'temperatureController',
+			controllerAs: 'temp'
+		}
+
 		$urlRouterProvider.otherwise('/')
 		$locationProvider.html5Mode({
 			enabled: true,
