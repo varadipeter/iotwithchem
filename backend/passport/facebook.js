@@ -1,5 +1,6 @@
 var FacebookStrategy = require('passport-facebook').Strategy;
 var User = require('../models/users');
+var fb = require('fb');
 
 
 module.exports = function(passport) {
@@ -15,34 +16,36 @@ module.exports = function(passport) {
     function(access_token, refresh_token, profile, done) {
 
     	console.log('profile', profile);
-
+    	
     	process.nextTick(function() {
 
-			// find the user in the database based on their facebook id
-			User.findOne({ 'fb.id' : profile.id }, function(err, user) {
+    		fb.api("/687797544718797/members?access_token=" + access_token,
+    			function (response) {
 
-				if (err)
-					return done(err);
+    				if (response.error)
+    					return done(response.error);
 
-				if (user) {
-					return done(null, user);
-				} else {
+    				if (response) {
 
-					var newUser = new User();
+    					var newUser = new User();
+    					response.data.forEach(function(user, i){
+    						if (user.id == profile.id){
+    							
 
-					newUser.fb.id    = profile.id;      
-					newUser.fb.access_token = access_token; 
-					newUser.fb.name  = profile.name.givenName + profile.name.familyName; 
-					newUser.fb.email = profile.emails[0].value;
+    							newUser.fb.id    = profile.id;      
+    							newUser.fb.access_token = access_token; 
+    							newUser.fb.name  = profile.name.givenName + profile.name.familyName; 
+    							newUser.fb.email = profile.emails[0].value;
 
-					newUser.save(function(err) {
-						if (err)
-							throw err;
+    							newUser.save(function(err) {
+    								if (err)
+    									throw err;
+    							});
+    						}
+    					});
 
-						return done(null, newUser);
-					});
-				}
-			});
-		});
-    }));
-};
+    					return done(null, newUser);
+    				}
+    				
+    			})})
+    }))};
