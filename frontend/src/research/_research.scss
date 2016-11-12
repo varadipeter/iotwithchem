@@ -1,0 +1,19 @@
+.sensorBlock{
+	background-color: #E7F1EC;
+ 	border-radius: 30px;
+ 	border-bottom: 1px solid darken(#E7F1EC, 6%);
+ 	width: 30%;
+ 	z-index: 9999;
+	color:gray;
+	text-align: center;
+	.status{
+		.sensorValue {
+			display: inline;
+			vertical-align: top;
+			margin-left: 10px;
+			text-decoration: inherit;
+			position: relative;
+			font-size:60px;
+		}
+	}
+}

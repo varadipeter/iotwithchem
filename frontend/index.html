@@ -3,18 +3,25 @@
 <head>
   <meta charset="utf-8"/>
   <title>Kemia App</title>
-
   <link rel="stylesheet" type="text/css" href="frontend/build/styles.css" />
   <base ng-href="/">
 </head>
 <body ng-app="kemia-app">
-
-  <a ui-sref="home" ui-sref-active="active">Home</a>
-	<a ui-sref="research" ui-sref-active="active">Research</a>
-  <a ui-sref="about" ui-sref-active="active">About</a>
-
+	<header class="centered-navigation" role="banner">
+  <div class="centered-navigation-wrapper">
+	<nav role="navigation">
+						<ul id="js-centered-navigation-menu" class="centered-navigation-menu show">
+							<li class="nav-link">
+								<a  ui-sref="home"><img src="frontend/icons/iot.png" class="mainTitleIcon">IotWithChem</a>
+							</li>
+							<li class="nav-link"> <a  ui-sref="research" ui-sref-active="active">Research</a></li>
+				  		<li class="nav-link"> <a  ui-sref="about" ui-sref-active="active">About</a></li>
+						</ul>
+	</nav>
+	</div>
+	</header>
   <ui-view></ui-view>
-
+	<footer></footer>
   <script type="text/javascript" src="node_modules/angular/angular.js"></script>
   <script type="text/javascript" src="node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
   <script type="text/javascript" src="frontend/build/scripts.js"></script>

@@ -25,10 +25,10 @@ gulp.task('sass', () => {
 	return gulp.src('frontend/styles/styles.scss')
              .pipe(plumber())
              .pipe(sourceMaps.init())
-             .pipe(sass())
+             .pipe(sass({ includePaths: require('node-bourbon').includePaths}))
              .pipe(cleanCss())
              .pipe(sourceMaps.write('./maps'))
-             .pipe(gulp.dest('./frontend/build'))
+             .pipe(gulp.dest('./frontend/build/'))
 })
 
 gulp.task('watch', () => {
@@ -45,7 +45,7 @@ gulp.task('unit-test', (done) => {
 })
 
 gulp.task('lint', () => {
-	return gulp.src(['backend/**/*.js', 'frontend/**/*.js', '!frontend/build/**/*.js', 'test/**/*.js', '!test/coverage/**/*.js'])
+	return gulp.src([ 'frontend/**/*.js', '!frontend/build/**/*.js', 'test/**/*.js', '!test/coverage/**/*.js'])
              .pipe(eslint())
              .pipe(eslint.format())
              .pipe(eslint.failAfterError())

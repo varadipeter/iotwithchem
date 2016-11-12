@@ -1,7 +1,8 @@
-<div class="temperature">
-	<div data-ng-controller="statusController">
-		<p>Status: <img src="frontend/icons/{{status}}.png" alt="Ok" height="30" width="30"></p>
+<div class="sensorBlock">
+	<h1 calss="sensorTitle">Temperature</h1>
+	<div data-ng-controller="statusController" class="status">
+		<p  style="display:inline">Status: <img src="frontend/icons/{{status}}.png" alt="Ok" height="30" width="30" > </p>
+ 		<p class="sensorValue"> {{temperatureValue}}&#8451 </p>
 	</div>
-		<p>The current temperature: {{temperatureValue}} &#8451</p>
 		<p>Last measurement: {{temperatureDate| date:'medium'}} </p>
 </div>
