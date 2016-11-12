@@ -25,10 +25,10 @@ gulp.task('sass', () => {
 	return gulp.src('frontend/styles/styles.scss')
              .pipe(plumber())
              .pipe(sourceMaps.init())
-             .pipe(sass())
+             .pipe(sass({ includePaths: require('node-bourbon').includePaths}))
              .pipe(cleanCss())
              .pipe(sourceMaps.write('./maps'))
-             .pipe(gulp.dest('./frontend/build'))
+             .pipe(gulp.dest('./frontend/build/'))
 })
 
 gulp.task('watch', () => {
