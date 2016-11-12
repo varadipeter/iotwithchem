@@ -1,7 +1,6 @@
 'use strict'
 
 let path = require('path'),
-	mongoose = require('mongoose'),      
 	db = require(path.resolve('backend/models/downloadData.js'))
     
 var raspiAlive = false
@@ -55,7 +54,7 @@ module.exports = (app) => {
 }
 
 
-
+/*global setInterval */
 setInterval(function () { db.getPulse(function(returndata){
 	raspiAlive = returndata
 })},5000)
