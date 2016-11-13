@@ -11,7 +11,7 @@
 		getTemperature().then(() => {
 		})
 
-		$interval(getTemperature, 30000)
+		$interval(getTemperature, 3000)
 
 		function getTemperature() {
 			return temperatureFactory.getTemperature()
