@@ -7,17 +7,18 @@ module.exports = function(passport){
     passport.serializeUser(function(user, done) {
         console.log('serializing user: ');
         console.log(user);
-        done(null, user._id);
+        done(null, user.fb.id);
     });
 
     passport.deserializeUser(function(id, done) {
-        User.findById(id, function(err, user) {
+        User.findOne({'fb.id' : id}, function(err, user) {
             console.log('deserializing user:',user);
             done(err, user);
         });
     });
 
-    // Setting up Passport Strategies for Facebook 
+    // Setting up Passport Strategies for Facebook
     facebook(passport);
+
 
 }

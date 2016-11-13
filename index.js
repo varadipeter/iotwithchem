@@ -12,6 +12,15 @@ app.set('port', process.env.PORT || 8081)
 
 app.use(express.static(__dirname + ''))
 
+app.use(function(req, res, next) {
+
+  res.header('Access-Control-Allow-Origin', "*");
+  res.header('Access-Control-Allow-Methods','GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+})
+
+
 // database connection settings
 mongoose.connection.on('open', (ref) => {
 	console.log('Connected to mongo server.')

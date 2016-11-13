@@ -1,72 +1,86 @@
 'use strict'
 
 let path = require('path'),
-mongoose = require('mongoose'),
-User = require(path.resolve('backend/models/users.js')),
-Temperature = require(path.resolve('backend/models/temperature.js')),
-Alive = require(path.resolve('backend/models/alive.js'));
-
-var tempvalue;
-var temp;
+  db = require(path.resolve('backend/models/downloadData.js'))
 
 
-var isLoggedIn = function (req, res, next) {
 
-  if (req.isAuthenticated())
-    return next();
-  res.redirect('/login');
-}
-
+var raspiAlive = false
 
 module.exports = (app, passport) => {
-  app.get('/users', (request, response) => {
 
-    User.find((error, users) => {
-      if (error) { response.send(error) }
+  app.get('/getsensorids', (request, response) => {
 
-        response.json(users)
-    })
-  })
-  
-  app.get('/temperatures', (request, response) => {
-
-    Temperature.find((error, temperatures) => {
-      if (error) { response.send(error) }
-
-        response.json(temperatures[temperatures.length-1])
+    db.getTemperatureSensors(function(returndata){
+      response.json(returndata)
     })
   })  
-  
-  app.get('/isalive', (request, response) => {
 
-    var a = new Alive({alivedate:'makos'})
 
-    Alive.find((error, alivedata) => {
-      if (error) { response.send(error) }
+  app.get('/gettemperature', (request, response) => {  
 
-        response.json(alivedata[alivedata.length-1])
+    var sensorid = request.param.sensorid 
+    if (typeof sensorid === 'undefined') sensorid = '1'
+
+    db.getTemperature(sensorid,function(returndata){
+      response.json(returndata)
     })
   })
-  
 
-  app.get('/', isLoggedIn, (request, response) => {
-    response.sendFile(path.resolve('frontend/index.html'));
-  });
 
-  app.get('/login',  (request, response) => {
-    if (request.isAuthenticated())
-      response.redirect('/');
-    else
-      response.sendFile(path.resolve('frontend/login.html'));
-  });
+  app.get('/gettemperatureinterval', (request, response) => {
+      
+    var sensorid = request.param('sensorid')
+    var datefrom = request.param('datefrom')
+    var dateto = request.param('dateto')  
+    if (typeof sensorid === 'undefined') sensorid = '1'
+
+    db.getTemperatureInterval(sensorid,datefrom,dateto,function(returndata){
+      response.json(returndata)
+    })
+
+  })      
+
+
+  app.get('/isalive', (request, response) => {
+
+    response.json({alive : raspiAlive})
+  })
+    
 
   app.get('/login/facebook',
-    passport.authenticate('facebook', { scope: [ 'email' ] })); 
+      passport.authenticate('facebook', { scope: [ 'email' ]}));
 
-  app.get('/login/facebook/return', 
-    passport.authenticate('facebook', { failureRedirect: '/login', scope : ['email'] }),
-    function(req, res) {
-      res.redirect('/');
+    app.get('/login/facebook/return',
+      passport.authenticate('facebook', { failureRedirect: '/research', scope : ['email'] }),
+      function(req, res) {
+        res.redirect('/home');
+      });
+
+
+    app.get('/logout', function(req, res){
+
+      req.session.destroy();
+      res.json({"status" : "logged out"});
+    })
+
+    app.get('/checkAuth', function(req, res){
+
+      if (req.isAuthenticated()){
+        res.json({'status' : 'authenticated'});
+      }else{
+        res.json({'status' : 'unauthenticated'});
+      }
+    })
+
+
+    app.get('*',  (request, response) => {
+      response.sendFile(path.resolve('frontend/index.html'));
     });
+
 }
 
+setInterval(function () { 
+  db.getPulse(function(returndata){
+  raspiAlive = returndata
+})},5000)
