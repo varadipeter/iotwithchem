@@ -1,5 +1,7 @@
 (() => {
-	angular.module('kemia-app').factory('statusFactory', statusFactory)
+	angular.module('kemia-app')
+	.factory('statusFactory', statusFactory)
+
 	statusFactory.$inject = ['$http']
 
 	function statusFactory($http) {
@@ -8,10 +10,13 @@
 		}
 
 		function getStatus() {
-			return $http.get('/isalive').then(getStatusComplete).catch(getStatusError)
+			return $http.get('/isalive')
+			.then(getStatusComplete)
+			.catch(getStatusError)
 		}
 
 		function getStatusComplete(response) {
+			console.error(response.data)
 			return response.data
 		}
 

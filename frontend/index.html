@@ -4,26 +4,23 @@
   <meta charset="utf-8"/>
   <title>Kemia App</title>
   <link rel="stylesheet" type="text/css" href="frontend/build/styles.css" />
+	<link href="https://fonts.googleapis.com/css?family=Droid+Sans+Mono" rel="stylesheet">
   <base ng-href="/">
 </head>
 <body ng-app="kemia-app">
-	<header class="centered-navigation" role="banner">
-  <div class="centered-navigation-wrapper">
-	<nav role="navigation">
-						<ul id="js-centered-navigation-menu" class="centered-navigation-menu show">
-							<li class="nav-link">
-								<a  ui-sref="home"><img src="frontend/icons/iot.png" class="mainTitleIcon">IotWithChem</a>
-							</li>
-							<li class="nav-link"> <a  ui-sref="research" ui-sref-active="active">Research</a></li>
-				  		<li class="nav-link"> <a  ui-sref="about" ui-sref-active="active">About</a></li>
-						</ul>
-	</nav>
-	</div>
-	</header>
+
+	<chem-header></chem-header>
   <ui-view></ui-view>
-	<footer></footer>
+	<chem-footer></chem-footer>
+
+	<!-- angular and third party -->
   <script type="text/javascript" src="node_modules/angular/angular.js"></script>
   <script type="text/javascript" src="node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
+	<script type="text/javascript" src="node_modules/moment/moment.js"></script>
+	<script type="text/javascript" src="node_modules/chart.js/dist/Chart.js"></script>
+	<script type="text/javascript" src="node_modules/angular-chart.js/angular-chart.js"></script>
+
+	<!-- scripts -->
   <script type="text/javascript" src="frontend/build/scripts.js"></script>
 </body>
 </html>

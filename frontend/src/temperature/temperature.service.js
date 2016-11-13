@@ -16,6 +16,7 @@
 		}
 
 		function getTemperatureComplete(response) {
+			console.error(response.data)
 			return response.data
 		}
 

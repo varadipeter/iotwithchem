@@ -1,5 +1,7 @@
 (() => {
-	angular.module('kemia-app').factory('authenticationFactory', authenticationFactory)
+	angular.module('kemia-app')
+	.factory('authenticationFactory', authenticationFactory)
+
 	authenticationFactory.$inject = ['$http']
 
 	function authenticationFactory($http) {
@@ -8,7 +10,9 @@
 		}
 
 		function checkAuth() {
-			return $http.get('/checkAuth').then(checkAuthComplete).catch(checkAuthError)
+			return $http.get('/checkAuth')
+				.then(checkAuthComplete)
+				.catch(checkAuthError)
 		}
 
 		function checkAuthComplete(response) {

@@ -5,3 +5,5 @@ npm-debug.log
 .idea/
 build/
 data/
+test/coverage/
+angular_hello
