@@ -11,7 +11,7 @@
 		getStatus().then(() => {
 		})
 		
-		$interval(getStatus, 30000)
+		$interval(getStatus, 3000)
 
 		function getStatus() {
 			return statusFactory.getStatus()
