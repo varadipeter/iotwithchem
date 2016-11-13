@@ -17,8 +17,8 @@
 			name: 'research',
 			url: '/research',
 			templateUrl: 'frontend/src/research/research.html',
-			controller: 'temperatureController',
-			controllerAs: 'temp'
+			controller: 'chartController',
+			controllerAs: 'chart'
 		}
 
 		let teamState = {
