@@ -5,7 +5,7 @@ let path = require('path'),
 
 var raspiAlive = false
 
-module.exports = (app) => {
+module.exports = (app, passport) => {
 
 	app.get('/getsensorids', (request, response) => {
 
@@ -45,10 +45,27 @@ module.exports = (app) => {
 		response.json({alive : raspiAlive})
 	})
 
+	app.get('/login/facebook',
+	passport.authenticate('facebook', { scope: [ 'email' ]}))
 
-	app.get('*', (request, response) => {
+	app.get('/login/facebook/return',
+	passport.authenticate('facebook', { failureRedirect: '/research', scope : ['email'] }),
+	(req, res) => {
+		res.redirect('/home')
+	})
 
-		response.sendFile(path.resolve('frontend/index.html'))
+
+	app.get('/logout', (req, res) => {
+		req.session.destroy()
+		res.json({'status' : 'logged out'})
+	})
+
+	app.get('/checkAuth', (req, res) => {
+		if (req.isAuthenticated()) {
+			res.json({'status' : 'authenticated'})
+		} else {
+			res.json({'status' : 'unauthenticated'})
+		}
 	})
 
 	app.get('*', (request, response) => {

@@ -29,6 +29,15 @@
 			controllerAs: 'team'
 		}
 
+		let loginState = {
+			name: 'login',
+			url: '/login',
+			templateUrl: 'frontend/src/login/login.html',
+			controller: 'loginController',
+			controllerAs: 'lc',
+			authenticate: false
+		}
+
 		$urlRouterProvider.otherwise('/')
 		$locationProvider.html5Mode({
 			enabled: true,
@@ -38,6 +47,7 @@
 		$stateProvider.state(helloState)
 		$stateProvider.state(researchState)
 		$stateProvider.state(teamState)
+		$stateProvider.state(loginState)
 
 		$urlRouterProvider.otherwise('/home')
 		$locationProvider.html5Mode({
