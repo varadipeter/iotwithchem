@@ -11,8 +11,14 @@ let gulp = require('gulp'),
 	eslint = require('gulp-eslint')
 
 
+let scripts = [
+	'frontend/src/app.js',
+	'frontend/src/app.config.js',
+	'frontend/src/app.route.js',
+	'frontend/src/**/*.js'
+]
 gulp.task('transpile', ['lint'], () => {
-	return gulp.src('frontend/src/**/*.js')
+	return gulp.src(scripts)
              .pipe(plumber())
              .pipe(sourceMaps.init())
              .pipe(babel({ presets: ['latest'] }))

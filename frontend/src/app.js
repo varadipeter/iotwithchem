@@ -1,5 +1,6 @@
 (() => {
 	angular.module('kemia-app', [
-		'ui.router'
+		'ui.router',
+		'chart.js'
 	])
 })()
