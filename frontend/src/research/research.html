@@ -1,8 +1,22 @@
-<div class="sensorBlock">
-	<h1 calss="sensorTitle">Temperature</h1>
-	<div data-ng-controller="statusController" class="status">
-		<p  style="display:inline">Status: <img src="frontend/icons/{{status}}.png" alt="Ok" height="30" width="30" > </p>
- 		<p class="sensorValue"> {{temperatureValue}}&#8451 </p>
+<div id="research" class="neat-container">
+	<div class="sensor-block">
+
+		<table class="sensor-table">
+			<thead></thead>
+			<tbody>
+				<tr data-ng-controller="statusController" class="status">
+					<td>Sensor status: </td>
+					<td><img src="frontend/icons/{{status}}.png" alt="Ok" height="30" width="30"/></td>
+				</tr>
+				<tr>
+					<td>Temperature: </td>
+					<td class="sensor-value">{{ temperatureValue }} &#8451;</td>
+				</tr>
+				<tr>
+					<td>Last measurement: </td>
+					<td>{{ temperatureDate | date: 'medium' }}</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
-		<p>Last measurement: {{temperatureDate| date:'medium'}} </p>
 </div>

@@ -33,7 +33,7 @@ gulp.task('sass', () => {
 
 gulp.task('watch', () => {
 	gulp.watch('frontend/src/**/*.js', ['transpile'])
-	gulp.watch('frontend/src/**/*.scss', ['sass'])
+	gulp.watch(['frontend/styles/**/*.scss', 'frontend/src/**/*.scss'], ['sass'])
 })
 
 gulp.task('unit-test', (done) => {
