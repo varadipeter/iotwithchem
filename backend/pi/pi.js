@@ -5,7 +5,7 @@ var db = require('../models/uploadData')
 var mongoose = require('mongoose')
 
 var hearthBeatInterval = 3000
-var temperatureUploadInterval = 4000
+var temperatureUploadInterval = 30000
 
 mongoose.connection.on('error', (error) => {
 	console.error('Could not connect to mongo server!')
