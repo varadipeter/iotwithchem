@@ -16,7 +16,10 @@
         "exports": true,
         "process": true,
         "__dirname": true,
-        "console": true
+        "console": true,
+        "element": true,
+        "by": true,
+         "setInterval", true
       },
     "extends": "eslint:recommended",
     "parserOptions": {
@@ -31,6 +34,6 @@
         "linebreak-style": ["off", "windows"],
         "quotes": ["error", "single", { "avoidEscape": true, "allowTemplateLiterals": true }],
         "semi": ["error", "never"],
-        "no-console": ["error", { allow: ["warn", "error", "info"] }]
+        "no-console": ["error", { allow: ["warn", "error", "info", "log"] }]
     }
 }

@@ -11,8 +11,14 @@ let gulp = require('gulp'),
 	eslint = require('gulp-eslint')
 
 
+let scripts = [
+	'frontend/src/app.js',
+	'frontend/src/app.config.js',
+	'frontend/src/app.route.js',
+	'frontend/src/**/*.js'
+]
 gulp.task('transpile', ['lint'], () => {
-	return gulp.src('frontend/src/**/*.js')
+	return gulp.src(scripts)
              .pipe(plumber())
              .pipe(sourceMaps.init())
              .pipe(babel({ presets: ['latest'] }))
@@ -25,15 +31,15 @@ gulp.task('sass', () => {
 	return gulp.src('frontend/styles/styles.scss')
              .pipe(plumber())
              .pipe(sourceMaps.init())
-             .pipe(sass())
+             .pipe(sass({ includePaths: require('node-bourbon').includePaths}))
              .pipe(cleanCss())
              .pipe(sourceMaps.write('./maps'))
-             .pipe(gulp.dest('./frontend/build'))
+             .pipe(gulp.dest('./frontend/build/'))
 })
 
 gulp.task('watch', () => {
 	gulp.watch('frontend/src/**/*.js', ['transpile'])
-	gulp.watch('frontend/src/**/*.scss', ['sass'])
+	gulp.watch(['frontend/styles/**/*.scss', 'frontend/src/**/*.scss'], ['sass'])
 })
 
 gulp.task('unit-test', (done) => {
@@ -45,7 +51,7 @@ gulp.task('unit-test', (done) => {
 })
 
 gulp.task('lint', () => {
-	return gulp.src(['backend/**/*.js', 'frontend/**/*.js', '!frontend/build/**/*.js', 'test/**/*.js', '!test/coverage/**/*.js'])
+	return gulp.src(['./*.js', 'frontend/**/*.js', '!frontend/build/**/*.js', 'test/**/*.js', '!test/coverage/**/*.js'])
              .pipe(eslint())
              .pipe(eslint.format())
              .pipe(eslint.failAfterError())

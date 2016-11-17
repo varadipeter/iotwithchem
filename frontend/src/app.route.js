@@ -5,7 +5,7 @@
 	routing.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider']
 
 	function routing($stateProvider, $urlRouterProvider, $locationProvider) {
-		var helloState = {
+		let helloState = {
 			name: 'home',
 			url: '/home',
 			templateUrl: 'frontend/src/home/home.html',
@@ -13,10 +13,29 @@
 			controllerAs: 'hc'
 		}
 
-		var aboutState = {
-			name: 'about',
-			url: '/about',
-			template: '<h3>About page</h3>'
+		let researchState = {
+			name: 'research',
+			url: '/research',
+			templateUrl: 'frontend/src/research/research.html',
+			controller: 'temperatureController',
+			controllerAs: 'temp'
+		}
+
+		let teamState = {
+			name: 'team',
+			url: '/team',
+			templateUrl: 'frontend/src/team/team.html',
+			controller: 'TeamController',
+			controllerAs: 'team'
+		}
+
+		let loginState = {
+			name: 'login',
+			url: '/login',
+			templateUrl: 'frontend/src/login/login.html',
+			controller: 'loginController',
+			controllerAs: 'lc',
+			authenticate: false
 		}
 
 		$urlRouterProvider.otherwise('/')
@@ -26,6 +45,14 @@
 		})
 
 		$stateProvider.state(helloState)
-		$stateProvider.state(aboutState)
+		$stateProvider.state(researchState)
+		$stateProvider.state(teamState)
+		$stateProvider.state(loginState)
+
+		$urlRouterProvider.otherwise('/home')
+		$locationProvider.html5Mode({
+			enabled: true,
+			requireBase: false
+		})
 	}
 })()

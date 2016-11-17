@@ -1,0 +1,30 @@
+.sensor-block{
+	background-color: #E7F1EC;
+ 	border-bottom: 1px solid darken(#E7F1EC, 6%);
+	padding: 30px;
+	margin: 30px 0;
+	width: 66%;
+	color: #333;
+	text-align: left;
+
+	.sensor-table {
+		tr {
+			height: 3.75em;
+
+			td {
+				vertical-align: middle;
+			}
+
+			td:not(:last-child) {
+				padding-right: .75em;
+			}
+		}
+	}
+
+	.status{
+	}
+
+	.sensor-value {
+		font-size: 3.75em;
+	}
+}

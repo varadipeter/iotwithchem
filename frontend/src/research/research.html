@@ -1,0 +1,27 @@
+<div id="research" class="neat-container">
+	<div class="sensor-block">
+
+		<table class="sensor-table">
+			<thead></thead>
+			<tbody>
+				<tr data-ng-controller="statusController" class="status">
+					<td>Sensor status: </td>
+					<td><img src="frontend/icons/{{status}}.png" alt="Ok" height="30" width="30"/></td>
+				</tr>
+				<tr>
+					<td>Temperature: </td>
+					<td class="sensor-value">{{ temperatureValue }} &#8451;</td>
+				</tr>
+				<tr>
+					<td>Last measurement: </td>
+					<td>{{ temperatureDate | date: 'medium' }}</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<canvas id="line" class="chart chart-line" chart-data="data"
+			chart-labels="labels" chart-series="series" chart-options="options"
+			chart-dataset-override="datasetOverride" chart-click="onClick">
+		</canvas>
+	</div>
+</div>

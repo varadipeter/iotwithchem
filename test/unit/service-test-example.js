@@ -2,21 +2,26 @@
 
 describe('jasmine unit test example: service', () => {
 
-	let controller, usersFactory
+	let controller, testScope, httpBackend
 
 	beforeEach(() => {
 		module('kemia-app')
 
-		inject(($controller, _usersFactory_) => {
-			usersFactory = _usersFactory_
-			controller = $controller('HomeController')
-
-			spyOn(usersFactory, 'getUsers').and.callThrough()
+		inject(($rootScope, $controller, $httpBackend) => {
+			testScope = $rootScope.$new()
+			httpBackend = $httpBackend
+			controller = $controller('HomeController', {
+				scope: testScope
+			})
 		})
 	})
 
 	it('should call spy on usersFactory service', () => {
-		controller.getUsers()
-		expect(usersFactory.getUsers).toHaveBeenCalled()
+		httpBackend.expectGET('/users').respond(200, [{ 'lol': 'yolo'}])
+		httpBackend.flush()
+		testScope.$digest()
+
+		expect(controller.users.length).toEqual(1)
+		expect(controller.users[0].lol).toEqual('yolo')
 	})
 })
