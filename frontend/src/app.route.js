@@ -10,15 +10,17 @@
 			url: '/home',
 			templateUrl: 'frontend/src/home/home.html',
 			controller: 'HomeController',
-			controllerAs: 'hc'
+			controllerAs: 'hc',
+			authenticate: false
 		}
 
 		let researchState = {
 			name: 'research',
 			url: '/research',
 			templateUrl: 'frontend/src/research/research.html',
-			controller: 'temperatureController',
-			controllerAs: 'temp'
+			controller: 'chartController',
+			controllerAs: 'chart',
+			authenticate: true
 		}
 
 		let teamState = {
@@ -26,7 +28,8 @@
 			url: '/team',
 			templateUrl: 'frontend/src/team/team.html',
 			controller: 'TeamController',
-			controllerAs: 'team'
+			controllerAs: 'team',
+			authenticate: false
 		}
 
 		let loginState = {

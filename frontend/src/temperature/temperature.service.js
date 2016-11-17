@@ -10,9 +10,7 @@
 		}
 
 		function getTemperature() {
-			return $http.get('/gettemperature')
-			.then(getTemperatureComplete)
-			.catch(getTemperatureError)
+			return $http.get('/gettemperature').then(getTemperatureComplete).catch(getTemperatureError)
 		}
 
 		function getTemperatureComplete(response) {
