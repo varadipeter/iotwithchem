@@ -1,6 +1,6 @@
 (() => {
-	var app = angular.module('kemia-app')
-	app.controller('temperatureController', temperatureController)
+	angular.module('kemia-app')
+	.controller('temperatureController', temperatureController)
 
 	temperatureController.$inject = ['$scope', 'temperatureFactory','$interval']
 
@@ -11,7 +11,7 @@
 		getTemperature().then(() => {
 		})
 
-		$interval(getTemperature, 3000)
+		$interval(getTemperature, 30000)
 
 		function getTemperature() {
 			return temperatureFactory.getTemperature()

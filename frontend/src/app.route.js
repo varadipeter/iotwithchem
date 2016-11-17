@@ -41,6 +41,15 @@
 			authenticate: false
 		}
 
+		let loginState = {
+			name: 'login',
+			url: '/login',
+			templateUrl: 'frontend/src/login/login.html',
+			controller: 'loginController',
+			controllerAs: 'lc',
+			authenticate: false
+		}
+
 		$urlRouterProvider.otherwise('/')
 		$locationProvider.html5Mode({
 			enabled: true,
