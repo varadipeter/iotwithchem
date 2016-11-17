@@ -1,0 +1,29 @@
+html, body {
+	height: 100%;
+}
+
+body {
+	font-family: 'Droid Sans Mono', monospace;
+}
+
+footer {
+	height: 75px;
+}
+
+chem-header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+
+.neat-container {
+	@include outer-container;
+	height: 100%;
+	min-height: 100%;
+	margin: 0 auto -75px;
+}
+
+.margin-top-60 {
+	margin-top: 60px;
+}
