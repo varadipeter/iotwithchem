@@ -6,6 +6,7 @@ var mongoose = require('mongoose')
 
 var hearthBeatInterval = 3000
 var temperatureUploadInterval = 30000
+var heatingCheckInterval = 2000
 
 mongoose.connection.on('error', (error) => {
 	console.error('Could not connect to mongo server!')
@@ -36,8 +37,22 @@ function IsAlive(){
 	console.info('Alive -',d)
 }
 
+function heatingCheck(){
+	devices.temperatureDevice(function(err,value){
+		console.log('Current temperature',value)
+		if(value<devices.lowerHeatTolerance){
+			devices.turnOnHeatRelay()
+		}
+		else if(value>devices.upperHeatTolerance){
+			devices.turnOffHeatRelay()
+		}
+	})
+}
+
 /*global setInterval */
 
 setInterval(IsAlive,hearthBeatInterval)
 
 setInterval(uploadDataToDatabase,temperatureUploadInterval)
+
+setInterval(heatingCheck,heatingCheckInterval)
