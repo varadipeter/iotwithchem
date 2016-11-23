@@ -20,10 +20,10 @@ function getTemperatureSensors(_callback){
 
 function getTemperature(sensorid,_callback){
         
-	Temperature.find({},'-_id -__v',(error, temperatures) => {
+	Temperature.findOne({},'-_id -__v',(error, temperatures) => {
 		if (error) { return _callback(null) }
-		return _callback(temperatures[temperatures.length-1])       
-	}).where('sensorid').equals(sensorid)   
+		return _callback(temperatures)       
+	}).where('sensorid').equals(sensorid).sort({'tempdate':'descending'})   
 }
 
 function getTemperatureInterval(sensorid,datefrom,dateto,_callback){
@@ -37,11 +37,11 @@ function getTemperatureInterval(sensorid,datefrom,dateto,_callback){
 
 function getPulse(_callback){
     
-	Alive.find((error, alivedata) => {
+	Alive.findOne((error, alivedata) => {
 		if(alivedata.length == 0){
 			return(_callback(false))
 		}
-		var currentLastDate = alivedata[alivedata.length-1].alivedate
+		var currentLastDate = alivedata.alivedate
 		if(lastAliveDate != 0 && lastAliveDate != currentLastDate){
 			lastAliveDate = currentLastDate
 			return _callback(true)
@@ -49,7 +49,7 @@ function getPulse(_callback){
 			lastAliveDate = currentLastDate
 			return _callback(false)
 		}        
-	})
+	}).sort({'tempdate':'descending'}) 
 }
 
 module.exports.getTemperatureSensors = getTemperatureSensors
