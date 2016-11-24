@@ -4,12 +4,11 @@ let qR = 'qToRaspberry',
     qW = 'qToWebserver',
     channel = null,
     url = "amqp://fiynopcz:fYBzRHfKTa-dcH8bgMo4WtTg5iPkpUa-@hare.rmq.cloudamqp.com/fiynopcz",
-    open = require('amqplib').connect(url);
-    
-    open.then(function(conn) {
+    open = require('amqplib').connect(url).then(function(conn) {
         var ok = conn.createChannel();
         ok = ok.then(function(ch) {
             channel = ch
+            console.info("channel created")
         });
     }).then(null, console.warn);
 

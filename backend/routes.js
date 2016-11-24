@@ -72,7 +72,7 @@ module.exports = (app, passport) => {
 	app.get('/led', function (req, res) {
     	res.setHeader("Content-Type", "text/json");
     	res.setHeader("Access-Control-Allow-Origin", "*");
-		mq.ssendmsgtoRaspberry('Led:egj')
+		mq.sendmsgtoRaspberry('Led:egj')
     	res.end(JSON.stringify({ led: true }));
 });
 
