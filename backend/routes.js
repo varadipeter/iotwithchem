@@ -1,7 +1,8 @@
 'use strict'
 
 let path = require('path'),
-	db = require(path.resolve('backend/models/downloadData.js'))
+	db = require(path.resolve('backend/models/downloadData.js')),
+	mq = require(path.resolve('backend/models/messagequeue.js'))
 
 var raspiAlive = false
 
@@ -68,9 +69,18 @@ module.exports = (app, passport) => {
 		}
 	})
 
+	app.get('/led', function (req, res) {
+    	res.setHeader("Content-Type", "text/json");
+    	res.setHeader("Access-Control-Allow-Origin", "*");
+		mq.ssendmsgtoRaspberry('Led:egj')
+    	res.end(JSON.stringify({ led: true }));
+});
+
 	app.get('*', (request, response) => {
 		response.sendFile(path.resolve('./frontend/index.html'))
 	})
+
+
 }
 
 setInterval(() => {
