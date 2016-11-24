@@ -52,6 +52,7 @@
     "karma-spec-reporter": "0.0.26",
     "moment": "^2.16.0",
     "mongoose": "^4.6.5",
+    "amqplib": "^0.5.1",
     "node-bourbon": "^4.2.7",
     "node-datetime": "^1.0.0",
     "passport": "^0.3.2",
