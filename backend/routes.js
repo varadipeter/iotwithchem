@@ -79,6 +79,14 @@ module.exports = (app, passport) => {
     	res.end(JSON.stringify({ heater: false }))
 	})
 
+	app.get('/heatertemperature', function (req, res) {
+		var heatertemp = req.param('heatertemp')
+    	res.setHeader("Content-Type", "text/json");
+    	res.setHeader("Access-Control-Allow-Origin", "*")
+		mq.sendmsgtoRaspberry('Heater:Temperature:'+heatertemp)
+    	res.end(JSON.stringify({ heater: true }))
+	})
+
 
 	app.get('*', (request, response) => {
 		response.sendFile(path.resolve('./frontend/index.html'))
