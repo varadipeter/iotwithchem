@@ -9,7 +9,6 @@ var raspiAlive = false
 module.exports = (app, passport) => {
 
 	app.get('/getsensorids', (request, response) => {
-
 		db.getTemperatureSensors(function(returndata){
 			response.json(returndata)
 		})
@@ -17,7 +16,6 @@ module.exports = (app, passport) => {
 
 
 	app.get('/gettemperature', (request, response) => {
-
 		var sensorid = request.param('sensorid')
 		if (typeof sensorid === 'undefined') sensorid = '1'
 
@@ -28,7 +26,6 @@ module.exports = (app, passport) => {
 
 
 	app.get('/gettemperatureinterval', (request, response) => {
-
 		var sensorid = request.param('sensorid')
 		var datefrom = request.param('datefrom')
 		var dateto = request.param('dateto')
@@ -42,7 +39,6 @@ module.exports = (app, passport) => {
 
 
 	app.get('/isalive', (request, response) => {
-
 		response.json({alive : raspiAlive})
 	})
 
@@ -69,12 +65,20 @@ module.exports = (app, passport) => {
 		}
 	})
 
-	app.get('/led', function (req, res) {
+	app.get('/heateron', function (req, res) {
     	res.setHeader("Content-Type", "text/json");
-    	res.setHeader("Access-Control-Allow-Origin", "*");
-		mq.sendmsgtoRaspberry('Led:egj')
-    	res.end(JSON.stringify({ led: true }));
-});
+    	res.setHeader("Access-Control-Allow-Origin", "*")
+		mq.sendmsgtoRaspberry('Heater:ON')
+    	res.end(JSON.stringify({ heater: true }));
+	})
+
+	app.get('/heateroff', function (req, res) {
+    	res.setHeader("Content-Type", "text/json");
+    	res.setHeader("Access-Control-Allow-Origin", "*")
+		mq.sendmsgtoRaspberry('Heater:OFF')
+    	res.end(JSON.stringify({ heater: false }))
+	})
+
 
 	app.get('*', (request, response) => {
 		response.sendFile(path.resolve('./frontend/index.html'))
