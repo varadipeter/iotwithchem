@@ -25,6 +25,12 @@ function temperatureDevice(_callback)
 
 module.exports.temperatureDevice = temperatureDevice
 
+function checkHeatRelayStatus(_callback){
+	return (_callback(heatSourceWorking))
+}
+
+module.exports.checkHeatRelayStatus = checkHeatRelayStatus
+
 function turnOnHeatRelay() {
 	if(!heatSourceWorking){
 		heatSourceWorking = true
