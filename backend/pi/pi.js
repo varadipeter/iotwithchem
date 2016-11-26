@@ -74,7 +74,7 @@ function heatingCheck(){
 function MessageRouting(message){
 	var splitMessage = message.split(':')
 	switch(splitMessage[0]){
-	case 'Led':
+	case 'Heater':
 		devices.checkHeatRelayStatus(function(value){
 			console.info('HeatSource working',value)
 		})
