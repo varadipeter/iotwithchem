@@ -8,37 +8,37 @@ var raspiAlive = false
 
 module.exports = (app, passport) => {
 
-	app.get('/getsensorids', (request, response) => {
+	app.get('/getsensorids', (req, res) => {
 		db.getTemperatureSensors(function(returndata){
-			response.json(returndata)
+			res.json(returndata)
 		})
 	})
 
 
-	app.get('/gettemperature', (request, response) => {
+	app.get('/gettemperature', (req, res) => {
 		var sensorid = request.param('sensorid')
 		if (typeof sensorid === 'undefined') sensorid = '1'
 
 		db.getTemperature(sensorid,function(returndata){
-			response.json(returndata)
+			res.json(returndata)
 		})
 	})
 
 
-	app.get('/gettemperatureinterval', (request, response) => {
-		var sensorid = request.param('sensorid')
-		var datefrom = request.param('datefrom')
-		var dateto = request.param('dateto')
+	app.get('/gettemperatureinterval', (req, res) => {
+		var sensorid = req.param('sensorid')
+		var datefrom = req.param('datefrom')
+		var dateto = req.param('dateto')
 		if (typeof sensorid === 'undefined') sensorid = '1'
 
 		db.getTemperatureInterval(sensorid,datefrom,dateto,function(returndata){
-			response.json(returndata)
+			res.json(returndata)
 		})
 
 	})
 
 
-	app.get('/isalive', (request, response) => {
+	app.get('/isalive', (req, res) => {
 		response.json({alive : raspiAlive})
 	})
 
@@ -66,29 +66,22 @@ module.exports = (app, passport) => {
 	})
 
 	app.get('/setheateron', function (req, res) {
-    	res.setHeader("Content-Type", "text/json");
-    	res.setHeader("Access-Control-Allow-Origin", "*")
 		mq.sendmsgtoRaspberry('Heater:ON')
-    	res.end(JSON.stringify({ heater: true }));
+    	res.json({ heater: true });
 	})
 
 	app.get('/setheateroff', function (req, res) {
-    	res.setHeader("Content-Type", "text/json");
-    	res.setHeader("Access-Control-Allow-Origin", "*")
 		mq.sendmsgtoRaspberry('Heater:OFF')
-    	res.end(JSON.stringify({ heater: false }))
+    	res.json({ heater: false })
 	})
 
 	app.get('/setheatertemperature', function (req, res) {
 		var heatertemp = req.param('heatertemp')
-    	res.setHeader("Content-Type", "text/json");
-    	res.setHeader("Access-Control-Allow-Origin", "*")
-		mq.sendmsgtoRaspberry('Heater:Temperature:'+heatertemp)
-    	res.end(JSON.stringify({ heater: true }))
+    	mq.sendmsgtoRaspberry('Heater:Temperature:'+heatertemp)
+    	res.json({ heater: true })
 	})
 
-
-	app.get('*', (request, response) => {
+	app.get('*', (req, res) => {
 		response.sendFile(path.resolve('./frontend/index.html'))
 	})
 
