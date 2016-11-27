@@ -41,6 +41,7 @@
 			authenticate: false
 		}
 
+
 		$urlRouterProvider.otherwise('/')
 		$locationProvider.html5Mode({
 			enabled: true,

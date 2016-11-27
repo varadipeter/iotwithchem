@@ -1,15 +1,40 @@
 <header class="navigation" role="banner">
-  <div class="navigation-wrapper neat-container">
-    <a ui-sref="home" class="logo">
-      <img ng-src="frontend/icons/iot.png" alt="Logo Image">
-    </a>
-    <a href="javascript:void(0)" class="navigation-menu-button" id="js-mobile-menu">MENU</a>
-    <nav role="navigation">
-      <ul id="js-navigation-menu" class="navigation-menu show">
-        <li class="nav-link"><a ui-sref="home" ui-sref-active="active">IotWithChem</a></li>
-        <li class="nav-link"><a ui-sref="research" ui-sref-active="active">Research</a></li>
-        <li class="nav-link"><a ui-sref="team" ui-sref-active="active">The Team</a></li>
-      </ul>
-    </nav>
-  </div>
+    <div class="navigation-wrapper neat-container">
+        <a class="logo" ui-sref="home">
+            <img alt="Logo Image" ng-src="frontend/icons/iot.png">
+            </img>
+        </a>
+        <a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">
+            MENU
+        </a>
+        <nav role="navigation" data-ng-controller="loginController">
+            <ul class="navigation-menu show" id="js-navigation-menu">
+                <li class="nav-link">
+                    <a ui-sref="home" ui-sref-active="active">
+                        IotWithChem
+                    </a>
+                </li>
+                <li class="nav-link">
+                    <a ui-sref="research" ui-sref-active="active">
+                        Research
+                    </a>
+                </li>
+                <li class="nav-link">
+                    <a ui-sref="team" ui-sref-active="active">
+                        The Team
+                    </a>
+                </li>
+                <li class=" nav-link nav-link-account">
+                    <a href="{{link}}" target="_self">
+                        {{text}}
+                    </a>
+                </li>
+                <li class="nav-link nav-link-account">
+                    <a href="http://www.facebook.com/{{fbId}}" target="_blank">
+                        {{name}}
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 </header>

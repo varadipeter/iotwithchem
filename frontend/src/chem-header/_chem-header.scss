@@ -133,6 +133,10 @@ header.navigation {
     }
   }
 
+   ul li.nav-link-account{
+        float:right;
+   }
+
   .active-nav-item a {
     border-bottom: 1px solid $navigation-active-link-color;
     padding-bottom: 3px;

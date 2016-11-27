@@ -6,9 +6,9 @@ let fb = require('fb')
 
 module.exports = (passport) => {
 	passport.use('facebook', new FacebookStrategy({
-		clientID: '190103424780365',
-		clientSecret: '6f2b8d730b04ae86285aac21bbfe1e41',
-		callbackURL: 'https://iotwithchemtest.herokuapp.com/login/facebook/return',
+		clientID: '323023344746285',
+		clientSecret: 'ebdb4703aed8f6812d51be129cef8ce2',
+		callbackURL: 'http://localhost:8081/login/facebook/return',
 		profileFields: ['id', 'name', 'link', 'about', 'email']
 	},
 	// facebook will send back the tokens and profile
@@ -35,7 +35,7 @@ module.exports = (passport) => {
 								let newUser = new User()
 								newUser.fb.id = profile.id
 								newUser.fb.access_token = access_token
-								newUser.fb.name = profile.name.givenName + profile.name.familyName
+								newUser.fb.name = profile.name.givenName + ' ' + profile.name.familyName
 								newUser.fb.email = profile.emails[0].value
 								newUser.save(function(err) {
 									if (err) {
