@@ -65,21 +65,21 @@ module.exports = (app, passport) => {
 		}
 	})
 
-	app.get('/heateron', function (req, res) {
+	app.get('/setheateron', function (req, res) {
     	res.setHeader("Content-Type", "text/json");
     	res.setHeader("Access-Control-Allow-Origin", "*")
 		mq.sendmsgtoRaspberry('Heater:ON')
     	res.end(JSON.stringify({ heater: true }));
 	})
 
-	app.get('/heateroff', function (req, res) {
+	app.get('/setheateroff', function (req, res) {
     	res.setHeader("Content-Type", "text/json");
     	res.setHeader("Access-Control-Allow-Origin", "*")
 		mq.sendmsgtoRaspberry('Heater:OFF')
     	res.end(JSON.stringify({ heater: false }))
 	})
 
-	app.get('/heatertemperature', function (req, res) {
+	app.get('/setheatertemperature', function (req, res) {
 		var heatertemp = req.param('heatertemp')
     	res.setHeader("Content-Type", "text/json");
     	res.setHeader("Access-Control-Allow-Origin", "*")
