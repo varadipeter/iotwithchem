@@ -9,6 +9,7 @@
 		$scope.link = '/login/facebook'
 		$scope.text = 'Sign in'
 		$scope.fbId = ''
+		$scope.picUrl = ''
 		checkAuth().then(() => {})
 
 		function checkAuth() {
@@ -18,6 +19,7 @@
 					$scope.name = response.user.name
 					$scope.link = '/logout'
 					$scope.text = 'Sign out'
+					$scope.picUrl = response.user.picUrl
 					$scope.fbId = response.user.id
 				}
 				lc.status = response.status

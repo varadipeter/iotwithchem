@@ -7,7 +7,7 @@
         <a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">
             MENU
         </a>
-        <nav role="navigation" data-ng-controller="loginController">
+        <nav data-ng-controller="loginController" role="navigation">
             <ul class="navigation-menu show" id="js-navigation-menu">
                 <li class="nav-link">
                     <a ui-sref="home" ui-sref-active="active">
@@ -31,7 +31,9 @@
                 </li>
                 <li class="nav-link nav-link-account">
                     <a href="http://www.facebook.com/{{fbId}}" target="_blank">
-                        {{name}}
+                        <img alt="profilepic" src="{{picUrl}}">
+                            {{name}}
+                        </img>
                     </a>
                 </li>
             </ul>
