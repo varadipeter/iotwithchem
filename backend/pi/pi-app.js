@@ -39,6 +39,18 @@ PiApp.prototype.uploadDataToDatabase = function () {
 		})
 	})
 }
+
+/** 
+ * Uploads alive data to database
+ */
+
+PiApp.prototype.IsAlive = function () {
+	var currentDate = new Date().getTime()
+	this.db.createAliveMessage(serialNumber,currentDate,function(err){
+		if (err) console.error(err)            
+	})
+	console.info('Alive -',currentDate)
+}
  
 /** 
  * 
@@ -63,6 +75,6 @@ PiApp.prototype.setEventLoop = function () {
 
 	setInterval(this.IsAlive,this.hearthBeatInterval)
 	setInterval(this.uploadDataToDatabase,this.temperatureUploadInterval)
-	setInterval(this.heatingCheck,this.heatingCheckInterval
+	setInterval(this.heatingCheck,this.heatingCheckInterval)
 
 }
