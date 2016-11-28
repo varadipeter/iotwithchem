@@ -16,7 +16,7 @@ module.exports = (app, passport) => {
 
 
 	app.get('/gettemperature', (req, res) => {
-		var sensorid = request.param('sensorid')
+		var sensorid = req.param('sensorid')
 		if (typeof sensorid === 'undefined') sensorid = '1'
 
 		db.getTemperature(sensorid,function(returndata){
@@ -39,7 +39,7 @@ module.exports = (app, passport) => {
 
 
 	app.get('/isalive', (req, res) => {
-		response.json({alive : raspiAlive})
+		res.json({alive : raspiAlive})
 	})
 
 	app.get('/login/facebook',
@@ -82,7 +82,7 @@ module.exports = (app, passport) => {
 	})
 
 	app.get('*', (req, res) => {
-		response.sendFile(path.resolve('./frontend/index.html'))
+		res.sendFile(path.resolve('./frontend/index.html'))
 	})
 
 
