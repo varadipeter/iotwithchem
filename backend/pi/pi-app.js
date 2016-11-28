@@ -58,10 +58,10 @@ PiApp.prototype.IsAlive = function () {
 PiApp.prototype.heatingCheck = function(){
 	this.device.temperatureDevice(function(err,value){
 		console.log('Current temperature',value)
-		if(value<devices.lowerHeatTolerance){
+		if(value<this.device.lowerHeatTolerance){
 			this.device.turnOnHeatRelay()
 		}
-		else if(value>devices.upperHeatTolerance){
+		else if(value>this.device.upperHeatTolerance){
 			this.device.turnOffHeatRelay()
 		}
 	})
@@ -73,8 +73,8 @@ PiApp.prototype.heatingCheck = function(){
  *  */ 
 PiApp.prototype.setEventLoop = function () {
 
-	setInterval(this.IsAlive,this.hearthBeatInterval)
-	setInterval(this.uploadDataToDatabase,this.temperatureUploadInterval)
-	setInterval(this.heatingCheck,this.heatingCheckInterval)
+	setInterval(this.IsAlive.bind(this),this.hearthBeatInterval)
+	setInterval(this.uploadDataToDatabase.bind(this),this.temperatureUploadInterval)
+	setInterval(this.heatingCheck.bind(this),this.heatingCheckInterval)
 
 }
