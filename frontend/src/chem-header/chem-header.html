@@ -7,7 +7,7 @@
         <a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">
             MENU
         </a>
-        <nav data-ng-controller="loginController" role="navigation">
+        <nav role="navigation">
             <ul class="navigation-menu show" id="js-navigation-menu">
                 <li class="nav-link">
                     <a ui-sref="home" ui-sref-active="active">
@@ -24,16 +24,22 @@
                         The Team
                     </a>
                 </li>
+            </ul>
+        </nav>
+        <nav role="navigation" class="account-items">
+            <ul class="navigation-menu show" id="js-navigation-menu">
                 <li class=" nav-link nav-link-account">
-                    <a href="{{link}}" target="_self">
-                        {{text}}
+                    <a href="{{lc.link}}" target="_self">
+                        {{lc.text}}
                     </a>
                 </li>
                 <li class="nav-link nav-link-account">
-                    <a href="http://www.facebook.com/{{fbId}}" target="_blank">
-                        <img alt="" src="{{picUrl}}">
-                            {{name}}
-                        </img>
+                    <img alt="" src="{{lc.picUrl}}">
+                    </img>
+                </li>
+                <li class="nav-link nav-link-account">
+                    <a href="http://www.facebook.com/{{lc.fbId}}" target="_blank">
+                        {{lc.name}}
                     </a>
                 </li>
             </ul>
