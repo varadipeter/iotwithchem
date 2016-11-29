@@ -33,9 +33,9 @@ PiApp.prototype.init = function () {
 PiApp.prototype.uploadDataToDatabase = function () {
 	var self = this 
 	this.device.temperatureDevice(function(err,value){
-		console.info('Raspberry -', self.serialNumber)
+		console.info('Raspberry -', self.serialnumber)
 		console.info('Current temperature on sensor is', value)
-		this.db.createTemperatureMessage(self.serialNumber,'1',value,new Date().getTime(),function(err){
+		self.db.createTemperatureMessage(self.serialnumber,'1',value,new Date().getTime(),function(err){
 			if (err) console.error(err)            
 		})
 	})
@@ -48,7 +48,7 @@ PiApp.prototype.uploadDataToDatabase = function () {
 PiApp.prototype.IsAlive = function () {
 	var self = this 
 	var currentDate = new Date().getTime()
-	this.db.createAliveMessage(self.serialNumber,self.currentDate,function(err){
+	this.db.createAliveMessage(self.serialnumber,self.currentDate,function(err){
 		if (err) console.error(err)            
 	})
 	console.info('Alive -',currentDate)
