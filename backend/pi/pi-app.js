@@ -31,10 +31,11 @@ PiApp.prototype.init = function () {
  * Uploads data to database 
  */
 PiApp.prototype.uploadDataToDatabase = function () {
+	var self = this 
 	this.device.temperatureDevice(function(err,value){
-		console.info('Raspberry -',this.serialNumber)
+		console.info('Raspberry -', self.serialNumber)
 		console.info('Current temperature on sensor is', value)
-		this.db.createTemperatureMessage(this.serialNumber,'1',value,new Date().getTime(),function(err){
+		this.db.createTemperatureMessage(self.serialNumber,'1',value,new Date().getTime(),function(err){
 			if (err) console.error(err)            
 		})
 	})
@@ -45,8 +46,9 @@ PiApp.prototype.uploadDataToDatabase = function () {
  */
 
 PiApp.prototype.IsAlive = function () {
+	var self = this 
 	var currentDate = new Date().getTime()
-	this.db.createAliveMessage(serialNumber,currentDate,function(err){
+	this.db.createAliveMessage(self.serialNumber,self.currentDate,function(err){
 		if (err) console.error(err)            
 	})
 	console.info('Alive -',currentDate)
@@ -56,12 +58,13 @@ PiApp.prototype.IsAlive = function () {
  * 
  */
 PiApp.prototype.heatingCheck = function(){
+	var self = this 
 	this.device.temperatureDevice(function(err,value){
 		console.log('Current temperature',value)
-		if(value<this.device.lowerHeatTolerance){
+		if( value < self.device.lowerHeatTolerance){
 			this.device.turnOnHeatRelay()
 		}
-		else if(value>this.device.upperHeatTolerance){
+		else if( value> self.device.upperHeatTolerance){
 			this.device.turnOffHeatRelay()
 		}
 	})
