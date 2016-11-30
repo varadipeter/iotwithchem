@@ -1,9 +1,3 @@
-
-
-var mongoose = require('mongoose') // hm.... realy needs it?  
-
-
-
 /* 
 **  Create an initial   app class
 ** with the injected external dependencies  
@@ -48,7 +42,7 @@ PiApp.prototype.uploadDataToDatabase = function () {
 PiApp.prototype.IsAlive = function () {
 	var self = this 
 	var currentDate = new Date().getTime()
-	this.db.createAliveMessage(self.serialnumber,self.currentDate,function(err){
+	this.db.createAliveMessage(self.serialnumber, currentDate,function(err){
 		if (err) console.error(err)            
 	})
 	console.info('Alive -',currentDate)
