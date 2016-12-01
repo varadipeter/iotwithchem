@@ -92,4 +92,4 @@ setInterval(() => {
 	db.getPulse((returndata) => {
 		raspiAlive = returndata
 	}
-)},5000)
+)},3000)

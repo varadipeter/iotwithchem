@@ -55,12 +55,15 @@ function getTemperatureInterval(sensorid,datefrom,dateto,_callback){
 
 
 function getPulse(_callback){
-    
 	Alive.find((error, alivedata) => {
 		if(alivedata.length == 0){
 			return(_callback(false))
 		}
 		var currentLastDate = alivedata[alivedata.length-1].alivedate
+		if (alivedata.length > 1 )
+		{
+			alivedata[0].remove();
+		}
 		if(lastAliveDate != 0 && lastAliveDate != currentLastDate){
 			lastAliveDate = currentLastDate
 			return _callback(true)
