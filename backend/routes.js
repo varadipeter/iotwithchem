@@ -78,7 +78,17 @@ module.exports = (app, passport) => {
 	app.get('/setheatertemperature', function (req, res) {
 		var heatertemp = req.param('heatertemp')
     	mq.sendmsgtoRaspberry('Heater:Temperature:'+heatertemp)
-    	res.json({ heater: true })
+    	mq.getHeaterTemperature(function(returndata)
+		{
+			res.json({heatertemperature: returndata})
+		})
+	})
+
+	app.get('/getheatertemperature', function (req, res) {
+    	mq.getHeaterTemperature(function(returndata)
+		{
+			res.json({heatertemperature: returndata})
+		})
 	})
 
 	app.get('*', (req, res) => {

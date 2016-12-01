@@ -9,8 +9,10 @@ let qR = 'qToRaspberry',
         ok = ok.then(function(ch) {
             channel = ch
             console.info("channel created")
+            receivemsgfromRaspberry();
         });
-    }).then(null, console.warn);
+    }).then(null, console.warn),
+    heatertemperature = 0
 
 
 function sendmsgtoRaspberry(msg){
@@ -19,4 +21,34 @@ function sendmsgtoRaspberry(msg){
     channel.sendToQueue(qR, new Buffer(msg));
 }
 
+function receivemsgfromRaspberry()
+{
+    channel.assertQueue(qW);
+    channel.consume(qW, function(msg) {
+                if (msg !== null) {
+                MessageRouting(msg.content.toString());              
+                channel.ack(msg);
+                }
+          });
+}
+
+function MessageRouting(message){
+	var splitMessage = message.split(':')
+	switch(splitMessage[0]){
+	case 'Heater':
+		switch(splitMessage[1]){
+		case 'Temperature':
+			heatertemperature = splitMessage[2] 
+			break
+		}
+		break
+	}
+}
+
+function getHeaterTemperature(_callback)
+{
+    return _callback(heatertemperature);
+}
+
 module.exports.sendmsgtoRaspberry = sendmsgtoRaspberry
+module.exports.getHeaterTemperature = getHeaterTemperature
