@@ -3,11 +3,10 @@
 ** with the injected external dependencies  
 ** 
 */ 
-var PiApp = module.exports =  function (db, device, cpuinfo, serialnumber) {
+var PiApp = module.exports =  function (db, device, gateway) {
 	this.db             = db 
-    this.device         = device; 
-    this.cpuinfo        = cpuinfo; // Hm... realy needs it? 
-    this.serialnumber   = serialnumber;  
+    this.device         = device 
+    this.gateway 		= gateway
 } 
 
 /**
@@ -15,6 +14,7 @@ var PiApp = module.exports =  function (db, device, cpuinfo, serialnumber) {
  * 
  */
 PiApp.prototype.init = function () { 
+	this.serialnumber   = this.gateway.fingerPrint()
 	this.hearthBeatInterval = 3000 
 	this.temperatureUploadInterval = 30000 
 	this.heatingCheckInterval = 2000
