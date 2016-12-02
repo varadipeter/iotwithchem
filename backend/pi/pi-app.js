@@ -19,6 +19,7 @@ PiApp.prototype.init = function () {
 	this.hearthBeatInterval = 3000 
 	this.temperatureUploadInterval = 30000 
 	this.heatingCheckInterval = 2000
+	this.messagequeueCheckInterval = 3000
 } 
 
 
@@ -66,6 +67,22 @@ PiApp.prototype.heatingCheck = function(){
 }
 
 /**
+ * Checks if the heating value has changed in messagequeue
+ * and sends a message if it changed here to.
+ */
+PiApp.prototype.messagequeueCheck = function(){
+	var lastTempInQueue = this.messagequeue.getHeaterTemperature()
+	var currentHeatingValue = this.device.heatingValue()
+	console.info('LastTempInQueue',lastTempInQueue)
+	console.info('CurrentHeatValue',currentHeatingValue)
+	if (lastTempInQueue != currentHeatingValue){
+		this.device.setHeatingTo(lastTempInQueue)
+		//Have to send response message here????
+	}
+
+}
+
+/**
  *  Set the main event loop  
  * 
  *  */ 
@@ -74,5 +91,6 @@ PiApp.prototype.setEventLoop = function () {
 	setInterval(this.IsAlive.bind(this),this.hearthBeatInterval)
 	setInterval(this.uploadDataToDatabase.bind(this),this.temperatureUploadInterval)
 	setInterval(this.heatingCheck.bind(this),this.heatingCheckInterval)
+	setInterval(this.messagequeueCheck.bind(this),this.messagequeueCheckInterval)
 
 }

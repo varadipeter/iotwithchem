@@ -45,9 +45,9 @@ function MessageRouting(message){
 	}
 }
 
-function getHeaterTemperature(_callback)
+function getHeaterTemperature()
 {
-    return _callback(heatertemperature);
+    return heatertemperature
 }
 
 module.exports.sendmsgtoRaspberry = sendmsgtoRaspberry

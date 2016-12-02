@@ -11,7 +11,8 @@ var Device = module.exports = function () {
 Device.prototype.init = function () { 
 	this.heatRelayPin = 11
 	this.heatSourceWorking = true
-	this.lowerHeatTolerance = 23.0
+	this.lowerHeatTolerance = 22.0
+	this.heatingValue = 0
 	this.upperHeatTolerance = 26.0
 	this.heatToleranceDelta = 2
 	gpio.setup(this.heatRelayPin, gpio.DIR_OUT,this.turnOffHeatRelay.bind(this))
@@ -33,8 +34,15 @@ Device.prototype.upperHeatTolerance = function(){
 /*
  * @returns true if heat source is working, false if not
  */
-Device.prototype.chekcHeatRelayStatus = function(){
+Device.prototype.checkHeatRelayStatus = function(){
 	return this.heatSourceWorking
+}
+
+/*
+ * @returns the current heating value
+ */
+Device.prototype.heatingValue = function(){
+	return this.heatingValue
 }
 
 /*
@@ -83,6 +91,7 @@ Device.prototype.turnOffHeatRelay = function() {
  * Sets heat temperature between value - heatToleranceDelta
  */
 Device.prototype.setHeatingTo = function(value) {
+	this.heatingValue = value
 	this.upperHeatTolerance = value + this.heatToleranceDelta
 	this.lowerHeatTolerance = value - this.heatToleranceDelta
 }
