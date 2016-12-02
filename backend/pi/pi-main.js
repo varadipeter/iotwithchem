@@ -1,5 +1,5 @@
 var db = require('../models/uploadData')
-var messagequeue = require('../models/messagequeue')
+var messagequeue = require('../models/messagequeue-pi')
 
 // load the pi ap module 
 var PiApp = require('./pi-app')

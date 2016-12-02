@@ -9,7 +9,7 @@ let qR = 'qToRaspberry',
         ok = ok.then(function(ch) {
             channel = ch
             console.info("channel created")
-            receivemsgfromRaspberry()
+            receivemsgfromWebserver()
         });
     }).then(null, console.warn),
     heatertemperature = 0
