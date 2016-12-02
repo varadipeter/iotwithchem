@@ -31,22 +31,6 @@ function receivemsgfromRaspberry(){
           });
 }
 
-function sendmsgtoWebserver(msg){
-    channel.assertQueue(qW)
-    channel.sendToQueue(qW,new Buffer(msg))
-}
-
-function receivemsgfromWebserver(){
-    channel.assertQueue(qR)
-    channel.consume(qR, function(msg) {
-                if (msg !== null) {
-                    console.info('New message from WEB',msg.content.toString())
-                    MessageRouting(msg.content.toString())
-                    channel.ack(msg)
-                }
-          });
-}
-
 function MessageRouting(message){
 	var splitMessage = message.split(':')
 	switch(splitMessage[0]){
@@ -66,5 +50,4 @@ function getHeaterTemperature()
 }
 
 module.exports.sendmsgtoRaspberry = sendmsgtoRaspberry
-module.exports.sendmsgtoWebserver = sendmsgtoWebserver
 module.exports.getHeaterTemperature = getHeaterTemperature

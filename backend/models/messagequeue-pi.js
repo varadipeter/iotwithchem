@@ -14,23 +14,6 @@ let qR = 'qToRaspberry',
     }).then(null, console.warn),
     heatertemperature = 0
 
-
-function sendmsgtoRaspberry(msg){
-    // send meaasge
-    channel.assertQueue(qR)
-    channel.sendToQueue(qR, new Buffer(msg))
-}
-
-function receivemsgfromRaspberry(){
-    channel.assertQueue(qW)
-    channel.consume(qW, function(msg) {
-                if (msg !== null) {
-                    MessageRouting(msg.content.toString());             
-                    channel.ack(msg)
-                }
-          });
-}
-
 function sendmsgtoWebserver(msg){
     channel.assertQueue(qW)
     channel.sendToQueue(qW,new Buffer(msg))
@@ -65,6 +48,5 @@ function getHeaterTemperature()
     return heatertemperature
 }
 
-module.exports.sendmsgtoRaspberry = sendmsgtoRaspberry
 module.exports.sendmsgtoWebserver = sendmsgtoWebserver
 module.exports.getHeaterTemperature = getHeaterTemperature
