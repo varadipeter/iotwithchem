@@ -1,4 +1,8 @@
-var db = require('../models/uploadData')
+//var db = require('../models/uploadData')
+
+// load the Db module 
+
+var Db = require('../models/db')
 
 // load the pi ap module 
 var PiApp = require('./pi-app')
@@ -14,6 +18,10 @@ var devices = new Devices()
 
 // create new gateway instance
 var gateway = new Gateway()
+
+
+// create a new Db instance 
+var db = new Db(); 
 
 // create a new instance 
 // with the exernal dependencies 
