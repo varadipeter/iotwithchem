@@ -72,12 +72,12 @@ PiApp.prototype.heatingCheck = function(){
  */
 PiApp.prototype.messagequeueCheck = function(){
 	var lastTempInQueue = this.messagequeue.getHeaterTemperature()
-	var currentHeatingValue = this.device.heatingValue()
+	var currentHeatingValue = this.device.heatingValue
 	console.info('LastTempInQueue',lastTempInQueue)
 	console.info('CurrentHeatValue',currentHeatingValue)
 	if (lastTempInQueue != currentHeatingValue){
 		this.device.setHeatingTo(lastTempInQueue)
-		//Have to send response message here????
+		this.messagequeue.sendmsgtoWebserver('Success') // or other message???
 	}
 
 }

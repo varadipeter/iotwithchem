@@ -9,7 +9,8 @@ let qR = 'qToRaspberry',
         ok = ok.then(function(ch) {
             channel = ch
             console.info("channel created")
-            receivemsgfromRaspberry();
+            receivemsgfromRaspberry()
+            receivemsgfromWebserver()
         });
     }).then(null, console.warn),
     heatertemperature = 0
@@ -17,17 +18,32 @@ let qR = 'qToRaspberry',
 
 function sendmsgtoRaspberry(msg){
     // send meaasge
-    channel.assertQueue(qR);
-    channel.sendToQueue(qR, new Buffer(msg));
+    channel.assertQueue(qR)
+    channel.sendToQueue(qR, new Buffer(msg))
 }
 
-function receivemsgfromRaspberry()
-{
-    channel.assertQueue(qW);
+function receivemsgfromRaspberry(){
+    channel.assertQueue(qW)
     channel.consume(qW, function(msg) {
                 if (msg !== null) {
-                MessageRouting(msg.content.toString());              
-                channel.ack(msg);
+                    MessageRouting(msg.content.toString());             
+                    channel.ack(msg)
+                }
+          });
+}
+
+function sendmsgtoWebserver(msg){
+    channel.assertQueue(qW)
+    channel.sendToQueue(qW,new Buffer(msg))
+}
+
+function receivemsgfromWebserver(){
+    channel.assertQueue(qR)
+    channel.consume(qR, function(msg) {
+                if (msg !== null) {
+                    console.info('New message from WEB',msg.content.toString())
+                    MessageRouting(msg.content.toString())
+                    channel.ack(msg)
                 }
           });
 }
@@ -51,4 +67,5 @@ function getHeaterTemperature()
 }
 
 module.exports.sendmsgtoRaspberry = sendmsgtoRaspberry
+module.exports.sendmsgtoWebservere = sendmsgtoWebserver
 module.exports.getHeaterTemperature = getHeaterTemperature
