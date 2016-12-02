@@ -2,7 +2,24 @@
 
 let path = require('path'),
 	Temperature = require(path.resolve('./backend/models/temperature.js')),
-	Alive = require(path.resolve('./backend/models/alive.js'))
+	Alive = require(path.resolve('./backend/models/alive.js')),
+	mongoose = require('mongoose')
+mongoose.Promise = global.Promise
+
+//database connection settings
+mongoose.connection.on('open', (ref) => {
+	console.info('Connected to mongo server.', ref)
+})
+
+mongoose.connection.on('error', (error) => {
+	console.error('Could not connect to mongo server!', error)
+})
+
+// connect to database on mongolab
+// ujj mongo : mongodb://heroku_1v5ndzf5:jhh1cjdvneikc2p77n0b3n32j7@ds113938.mlab.com:13938/heroku_1v5ndzf5
+mongoose.connect('mongodb://heroku_hww55rc1:2ic4cjhncvmlse83a21lnejpru@ds139187.mlab.com:39187/heroku_hww55rc1',function(err) {
+	if (err) console.error('erros:' + err)
+})
 
 function createTemperatureMessage(rid,sid,tv,td,_callback){
 	var t = new Temperature({  
