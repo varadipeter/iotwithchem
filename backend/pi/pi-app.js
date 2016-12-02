@@ -49,17 +49,17 @@ PiApp.prototype.IsAlive = function () {
 }
  
 /** 
- * 
+ * Keeps the temperature betweet tolerance values
  */
 PiApp.prototype.heatingCheck = function(){
 	var self = this 
 	this.device.temperatureDevice(function(err,value){
 		console.log('Current temperature',value)
 		if( value < self.device.lowerHeatTolerance){
-			this.device.turnOnHeatRelay()
+			self.device.turnOnHeatRelay()
 		}
 		else if( value> self.device.upperHeatTolerance){
-			this.device.turnOffHeatRelay()
+			self.device.turnOffHeatRelay()
 		}
 	})
 }

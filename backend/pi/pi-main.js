@@ -1,8 +1,4 @@
-
-var devices = require('./devices/devices')
 var db = require('../models/uploadData')
-
-
 
 // load the pi ap module 
 var PiApp = require('./pi-app')
@@ -10,12 +6,18 @@ var PiApp = require('./pi-app')
 // load the gateway module
 var Gateway = require('./devices/gateway')
 
+// load the devices module
+var Devices = require('./devices/pi_devices.js')
+
+// create new devices instance
+var devices = new Devices()
+
 // create new gateway instance
 var gateway = new Gateway()
 
 // create a new instance 
 // with the exernal dependencies 
-// db, devices, cpuinfo, serialnumber 
+// db, devices, gateway 
 var piapp = new PiApp(db, devices, gateway) 
 
 // Initialize the pi app 
