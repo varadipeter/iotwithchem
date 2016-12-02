@@ -88,10 +88,16 @@ Db.prototype.createAliveMessage = function ( rid,td,_callback){
 	})
 
     // call the Alive class save operator 
-	a.save(function(err) {
+	Alive.find((error, alivedata) => {
+		if(alivedata.length != 0){
+			alivedata[0].remove();
+		}
+		
+		a.save(function(err) {
 		if (err) 
 			return _callback(err)
-	})
+		})
 	return _callback(null)
+	})
 }
 
