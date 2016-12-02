@@ -10,7 +10,7 @@ var Gateway = module.exports = function () {
 
     // Question : Why sync call ? Is it realy necessary ? 
 	this.cpuinfo = !fs.existsSync('/proc/cpuinfo') ? '' : fs.readFileSync('/proc/cpuinfo') + ''
-	this.init.bind(this)
+	this.cpuJson = this.init()
 
 } 
 
@@ -42,7 +42,7 @@ Gateway.prototype.fingerPrint = function () {
 
 	var self = this
 
-	return  self.serialNumber = self.cpuinfo['Serial'] == undefined ? -1 : self.cpuinfo['Serial'][0]
+	return  self.serialNumber = self.cpuJson['Serial'] == undefined ? -1 : self.cpuJson['Serial'][0]
 	
 }
 
