@@ -1,4 +1,5 @@
 var db = require('../models/uploadData')
+var messagequeue = require('../models/messagequeue')
 
 // load the pi ap module 
 var PiApp = require('./pi-app')
@@ -17,8 +18,8 @@ var gateway = new Gateway()
 
 // create a new instance 
 // with the exernal dependencies 
-// db, devices, gateway 
-var piapp = new PiApp(db, devices, gateway) 
+// db, devices, gateway, messagequeue
+var piapp = new PiApp(db, devices, gateway, messagequeue) 
 
 // Initialize the pi app 
 piapp.init()

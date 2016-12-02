@@ -3,10 +3,11 @@
 ** with the injected external dependencies  
 ** 
 */ 
-var PiApp = module.exports =  function (db, device, gateway) {
+var PiApp = module.exports =  function (db, device, gateway, messagequeue) {
 	this.db             = db 
     this.device         = device 
-    this.gateway 		= gateway
+    this.gateway        = gateway
+    this.messagequeue   = messagequeue
 } 
 
 /**
