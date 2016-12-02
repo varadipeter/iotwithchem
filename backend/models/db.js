@@ -14,6 +14,7 @@ let path = require('path'),
 var Db = module.exports = function ( ) { 
 
 	this.mongoose = mongoose 
+	this.init()
 
 }
 
