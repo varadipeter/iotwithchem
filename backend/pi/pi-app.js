@@ -71,7 +71,7 @@ PiApp.prototype.heatingCheck = function(){
  * and sends a message if it changed here to.
  */
 PiApp.prototype.messagequeueCheck = function(){
-	var lastTempInQueue = this.messagequeue.getHeaterTemperature()
+	var lastTempInQueue = parseInt(this.messagequeue.getHeaterTemperature())
 	var currentHeatingValue = this.device.heatingValue
 	console.info('LastTempInQueue',lastTempInQueue)
 	console.info('CurrentHeatValue',currentHeatingValue)
