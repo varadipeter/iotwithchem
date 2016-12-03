@@ -95,7 +95,7 @@ module.exports = (app, passport) => {
 		var upinterval = req.param('upinterval')
 		var sensorid = req.param('sensorid')
 		if (typeof sensorid === 'undefined') sensorid = '1'
-		if (typeof upinterval === 'undefined') upinterval = '30 000'
+		if (typeof upinterval === 'undefined') upinterval = '30000'
     	mq.sendmsgtoRaspberry('Sensor:UpInterval:'+sensorid+':'+upinterval)
     	res.json({sent: true})
 	})
