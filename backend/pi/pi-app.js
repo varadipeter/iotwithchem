@@ -36,6 +36,7 @@ PiApp.prototype.uploadDataToDatabase = function () {
 			if (err) console.error(err)            
 		})
 	})
+	this.uploadDataTimeout = setTimeout(this.uploadDataToDatabase.bind(this),this.temperatureUploadInterval)
 }
 
 /** 
@@ -70,6 +71,7 @@ PiApp.prototype.heatingCheck = function(){
 /**
  * Checks if the heating value has changed in messagequeue
  * and sends a message if it changed here to.
+ * Checks if uploadInterval was changed and updates that too
  */
 PiApp.prototype.messagequeueCheck = function(){
 	var lastTempInQueue = parseInt(this.messagequeue.getHeaterTemperature())
@@ -78,9 +80,14 @@ PiApp.prototype.messagequeueCheck = function(){
 	console.info('CurrentHeatValue',currentHeatingValue)
 	if (lastTempInQueue != currentHeatingValue){
 		this.heatsourcedevice.setHeatingTo(lastTempInQueue)
-		this.messagequeue.sendmsgtoWebserver('Success') // or other message???
+		this.messagequeue.sendmsgtoWebserver('Heater:Temperature:'+lastTempInQueue)
 	}
-
+	var lastUploadIntervalinQueue = parseInt(this.messagequeue.getUploadInterval())
+	if(lastUploadIntervalinQueue != this.temperatureUploadInterval){
+		this.temperatureUploadInterval = lastUploadIntervalinQueue
+		clearTimeout(this.uploadDataTimeout)
+		this.uploadDataTimeout = setTimeout(this.uploadDataToDatabase.bind(this),this.temperatureUploadInterval)
+	}
 }
 
 /**
@@ -90,7 +97,7 @@ PiApp.prototype.messagequeueCheck = function(){
 PiApp.prototype.setEventLoop = function () {
 
 	setInterval(this.IsAlive.bind(this),this.hearthBeatInterval)
-	setInterval(this.uploadDataToDatabase.bind(this),this.temperatureUploadInterval)
+	this.uploadDataTimeout = setTimeout(this.uploadDataToDatabase.bind(this),this.temperatureUploadInterval)
 	setInterval(this.heatingCheck.bind(this),this.heatingCheckInterval)
 	setInterval(this.messagequeueCheck.bind(this),this.messagequeueCheckInterval)
 

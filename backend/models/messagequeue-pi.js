@@ -12,7 +12,8 @@ let qR = 'qToRaspberry',
             receivemsgfromWebserver()
         });
     }).then(null, console.warn),
-    heatertemperature = 0
+    heatertemperature = 0,
+    uploadTempInterval = 30000
 
 function sendmsgtoWebserver(msg){
     channel.assertQueue(qW)
@@ -43,7 +44,7 @@ function MessageRouting(message){
     case 'Sensor':
         switch(splitMessage[1]){
 		    case 'UpInterval':
-			    console.info('Command from Raspberry ',splitMessage[2],splitMessage[3])
+                uploadTempInterval = splitMessage[3]
 			    break
 		    }
         break   
@@ -55,5 +56,10 @@ function getHeaterTemperature()
     return heatertemperature
 }
 
+function getUploadInterval(){
+    return uploadTempInterval
+}
+
 module.exports.sendmsgtoWebserver = sendmsgtoWebserver
 module.exports.getHeaterTemperature = getHeaterTemperature
+module.exports.getUploadInterval = getUploadInterval
