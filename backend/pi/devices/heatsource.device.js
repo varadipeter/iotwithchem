@@ -1,69 +1,48 @@
-var ds18b20 = require('./ds18b20')
+
 var gpio = require('rpi-gpio')
 
 /**
  * Class to handle all the required devices, sensors
  */
-var Device = module.exports = function () {
+var HeatSourceDevice = module.exports = function () {
 	this.init()
 }
 
-Device.prototype.init = function () { 
+HeatSourceDevice.prototype.init = function () { 
 	this.heatRelayPin = 11
 	this.heatSourceWorking = true
-	this.lowerHeatTolerance = 22.0
+	this.lowerHeatTolerance = 0
 	this.heatingValue = 0
-	this.upperHeatTolerance = 26.0
+	this.upperHeatTolerance = 0
 	this.heatToleranceDelta = 2
 	gpio.setup(this.heatRelayPin, gpio.DIR_OUT,this.turnOffHeatRelay.bind(this))
 }
 /*
  * @returns the lowerHeatTolerance
  */
-Device.prototype.lowerHeatTolerance = function(){
+HeatSourceDevice.prototype.lowerHeatTolerance = function(){
 	return this.lowerHeatTolerance
 }
 
 /*
  * @returns the upperHeatTolerance
  */
-Device.prototype.upperHeatTolerance = function(){
+HeatSourceDevice.prototype.upperHeatTolerance = function(){
 	return this.upperHeatTolerance
 }
 
 /*
  * @returns true if heat source is working, false if not
  */
-Device.prototype.checkHeatRelayStatus = function(){
+HeatSourceDevice.prototype.chekcHeatRelayStatus = function(){
 	return this.heatSourceWorking
 }
 
-/*
- * @returns the current heating value
- */
-Device.prototype.heatingValue = function(){
-	return this.heatingValue
-}
-
-/*
- * @params callback function
- * @returns err - if error happened , value - the temperature value
- */
-Device.prototype.temperatureDevice = function(_callback){
-	ds18b20.sensors(function(err, ids) {
-		if(err){
-			return _callback(err,ids)
-		}
-		ds18b20.temperature(ids, {parser: 'hex'}, function(err, value) {
-			return _callback(err,value)
-		})
-	})
-}
 
 /*
  * Turns on the relay for heat source
  */
-Device.prototype.turnOnHeatRelay = function() {
+HeatSourceDevice.prototype.turnOnHeatRelay = function() {
 	if(!this.heatSourceWorking){
 		this.heatSourceWorking = true
 		gpio.write(this.heatRelayPin, false, function(err) {
@@ -76,7 +55,7 @@ Device.prototype.turnOnHeatRelay = function() {
 /*
  * Turns off the relay for heat source
  */
-Device.prototype.turnOffHeatRelay = function() {
+HeatSourceDevice.prototype.turnOffHeatRelay = function() {
 	if(this.heatSourceWorking){
 		this.heatSourceWorking = false
 		gpio.write(this.heatRelayPin, true, function(err) {
@@ -90,7 +69,7 @@ Device.prototype.turnOffHeatRelay = function() {
  * @param value
  * Sets heat temperature between value - heatToleranceDelta
  */
-Device.prototype.setHeatingTo = function(value) {
+HeatSourceDevice.prototype.setHeatingTo = function(value) {
 	this.heatingValue = value
 	this.upperHeatTolerance = value + this.heatToleranceDelta
 	this.lowerHeatTolerance = value - this.heatToleranceDelta
@@ -100,6 +79,6 @@ Device.prototype.setHeatingTo = function(value) {
  * @param value
  * Sets heatToleranceDelta to value
  */
-Device.prototype.setHeatingDelta = function(value) {
+HeatSourceDevice.prototype.setHeatingDelta = function(value) {
 	this.heatToleranceDelta = value
 }

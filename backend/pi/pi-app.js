@@ -3,11 +3,12 @@
 ** with the injected external dependencies  
 ** 
 */ 
-var PiApp = module.exports =  function (db, device, gateway, messagequeue) {
-	this.db             = db 
-    this.device         = device 
-    this.gateway        = gateway
-    this.messagequeue   = messagequeue
+var PiApp = module.exports =  function (db, temperaturedevice, heatsourcedevice, gateway, messagequeue) {
+	this.db                          = db
+	this.temperaturedevice           = temperaturedevice  
+	this.heatsourcedevice            = heatsourcedevice 
+	this.gateway 		             = gateway
+	this.messagequeue                = messagequeue
 } 
 
 /**
@@ -28,7 +29,7 @@ PiApp.prototype.init = function () {
  */
 PiApp.prototype.uploadDataToDatabase = function () {
 	var self = this 
-	this.device.temperatureDevice(function(err,value){
+	this.temperaturedevice.actualValue(function(err,value){
 		console.info('Raspberry -', self.serialnumber)
 		console.info('Current temperature on sensor is', value)
 		self.db.createTemperatureMessage(self.serialnumber,'1',value,new Date().getTime(),function(err){
@@ -55,13 +56,13 @@ PiApp.prototype.IsAlive = function () {
  */
 PiApp.prototype.heatingCheck = function(){
 	var self = this 
-	this.device.temperatureDevice(function(err,value){
+	this.temperaturedevice.actualValue(function(err,value){
 		console.log('Current temperature',value)
-		if( value < self.device.lowerHeatTolerance){
-			self.device.turnOnHeatRelay()
+		if( value < self.heatsourcedevice.lowerHeatTolerance){
+			self.heatsourcedevice.turnOnHeatRelay()
 		}
-		else if( value> self.device.upperHeatTolerance){
-			self.device.turnOffHeatRelay()
+		else if( value> self.heatsourcedevice.upperHeatTolerance){
+			self.heatsourcedevice.turnOffHeatRelay()
 		}
 	})
 }
@@ -72,11 +73,11 @@ PiApp.prototype.heatingCheck = function(){
  */
 PiApp.prototype.messagequeueCheck = function(){
 	var lastTempInQueue = parseInt(this.messagequeue.getHeaterTemperature())
-	var currentHeatingValue = this.device.heatingValue
+	var currentHeatingValue = this.heatsourcedevice.heatingValue
 	console.info('LastTempInQueue',lastTempInQueue)
 	console.info('CurrentHeatValue',currentHeatingValue)
 	if (lastTempInQueue != currentHeatingValue){
-		this.device.setHeatingTo(lastTempInQueue)
+		this.heatsourcedevice.setHeatingTo(lastTempInQueue)
 		this.messagequeue.sendmsgtoWebserver('Success') // or other message???
 	}
 
