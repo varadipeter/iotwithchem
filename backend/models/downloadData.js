@@ -2,7 +2,26 @@
 
 let path = require('path'),   
 	Temperature = require(path.resolve('backend/models/temperature.js')),
-	Alive = require(path.resolve('backend/models/alive.js'))
+	Alive = require(path.resolve('backend/models/alive.js')),
+	mongoose = require('mongoose')
+
+mongoose.Promise = global.Promise
+
+// database connection settings
+mongoose.connection.on('open', () => {
+	console.info('Connected to mongo server.')
+})
+
+mongoose.connection.on('error', (error) => {
+	console.error('Could not connect to mongo server!', error)
+})
+
+// connect to database on mongolab
+mongoose.connect('mongodb://heroku_hww55rc1:2ic4cjhncvmlse83a21lnejpru@ds139187.mlab.com:39187/heroku_hww55rc1',function(err) {
+	if (err) console.error('erros:' + err)
+}) //('mongodb://votiv:votiv@ds031257.mlab.com:31257/kemia-db')
+
+
 
 var lastAliveDate = 0
 
@@ -20,10 +39,10 @@ function getTemperatureSensors(_callback){
 
 function getTemperature(sensorid,_callback){
         
-	Temperature.find({},'-_id -__v',(error, temperatures) => {
+	Temperature.findOne({},'-_id -__v',(error, temperatures) => {
 		if (error) { return _callback(null) }
-		return _callback(temperatures[temperatures.length-1])       
-	}).where('sensorid').equals(sensorid)   
+		return _callback(temperatures)       
+	}).where('sensorid').equals(sensorid).sort({'tempdate':'descending'})   
 }
 
 function getTemperatureInterval(sensorid,datefrom,dateto,_callback){
@@ -36,7 +55,6 @@ function getTemperatureInterval(sensorid,datefrom,dateto,_callback){
 
 
 function getPulse(_callback){
-    
 	Alive.find((error, alivedata) => {
 		if(alivedata.length == 0){
 			return(_callback(false))
