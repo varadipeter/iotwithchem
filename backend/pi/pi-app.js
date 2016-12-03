@@ -59,7 +59,7 @@ PiApp.prototype.heatingCheck = function(){
 		if( value < self.heatsourcedevice.lowerHeatTolerance){
 			self.heatsourcedevice.turnOnHeatRelay()
 		}
-		else if( value> self.device.upperHeatTolerance){
+		else if( value> self.heatsourcedevice.upperHeatTolerance){
 			self.heatsourcedevice.turnOffHeatRelay()
 		}
 	})
