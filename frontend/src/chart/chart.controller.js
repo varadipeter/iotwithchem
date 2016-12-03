@@ -35,7 +35,7 @@
 				for (let i = 1; i < data.length; i += 1)
 				{
 					let date = (new moment(parseInt(data[i].tempdate)).toISOString().split('.'))[0].replace('T',' ')
-					//if(temporaryTemperatures[temporaryTemperatures.length-1] != data[i].tempvalue)
+					if(temporaryTemperatures[temporaryTemperatures.length-1] != data[i].tempvalue)
 					{
 						temporaryTemperatures.push(data[i].tempvalue)
 						temporaryDates.push(moment(date).format('YY/MM/DD, h:mm:ss a'))

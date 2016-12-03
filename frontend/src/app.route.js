@@ -20,7 +20,7 @@
 			templateUrl: 'frontend/src/research/research.html',
 			controller: 'chartController',
 			controllerAs: 'chart',
-			authenticate: false
+			authenticate: true
 		}
 
 		let teamState = {
