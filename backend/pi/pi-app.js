@@ -3,10 +3,11 @@
 ** with the injected external dependencies  
 ** 
 */ 
-var PiApp = module.exports =  function (db, device, gateway) {
-	this.db             = db 
-    this.device         = device 
-    this.gateway 		= gateway
+var PiApp = module.exports =  function (db, temperaturedevice, heatsourcedevice, gateway) {
+	this.db                          = db
+	this.temperaturedevice           = temperaturedevice  
+	this.heatsourcedevice            = heatsourcedevice 
+	this.gateway 		             = gateway
 } 
 
 /**
@@ -26,7 +27,7 @@ PiApp.prototype.init = function () {
  */
 PiApp.prototype.uploadDataToDatabase = function () {
 	var self = this 
-	this.device.temperatureDevice(function(err,value){
+	this.temperaturedevice.actualValue(function(err,value){
 		console.info('Raspberry -', self.serialnumber)
 		console.info('Current temperature on sensor is', value)
 		self.db.createTemperatureMessage(self.serialnumber,'1',value,new Date().getTime(),function(err){
@@ -53,13 +54,13 @@ PiApp.prototype.IsAlive = function () {
  */
 PiApp.prototype.heatingCheck = function(){
 	var self = this 
-	this.device.temperatureDevice(function(err,value){
+	this.temperaturedevice.actualValue(function(err,value){
 		console.log('Current temperature',value)
-		if( value < self.device.lowerHeatTolerance){
-			self.device.turnOnHeatRelay()
+		if( value < self.heatsourcedevice.lowerHeatTolerance){
+			self.heatsourcedevice.turnOnHeatRelay()
 		}
 		else if( value> self.device.upperHeatTolerance){
-			self.device.turnOffHeatRelay()
+			self.heatsourcedevice.turnOffHeatRelay()
 		}
 	})
 }
