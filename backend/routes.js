@@ -91,6 +91,15 @@ module.exports = (app, passport) => {
 		})
 	})
 
+	app.get('/settemperaturesensorsuploadintervall', function (req, res) {
+		var upinterval = req.param('upinterval')
+		var sensorid = req.param('sensorid')
+		if (typeof sensorid === 'undefined') sensorid = '1'
+		if (typeof upinterval === 'undefined') upinterval = '30 000'
+    	mq.sendmsgtoRaspberry('Sensor:UpInterval:'+sensorid+':'+upinterval)
+    	res.json({sent: true})
+	})
+
 	app.get('*', (req, res) => {
 		res.sendFile(path.resolve('./frontend/index.html'))
 	})

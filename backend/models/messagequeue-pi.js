@@ -40,6 +40,13 @@ function MessageRouting(message){
 			break
 		}
 		break
+    case 'Sensor':
+        switch(splitMessage[1]){
+		    case 'UpInterval':
+			    console.info('Command from Raspberry ',splitMessage[2],splitMessage[3])
+			    break
+		    }
+        break   
 	}
 }
 
