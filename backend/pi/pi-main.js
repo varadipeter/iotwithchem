@@ -13,8 +13,6 @@ var Gateway = require('./devices/gateway')
 // load the devices module
 var Devices = require('./devices/pi_devices.js')
 
-var SensorActuator = require('./devices/sensoractuator')
-var devices = new SensorActuator()
 
 // create new devices instance
 //var devices = new Devices()
