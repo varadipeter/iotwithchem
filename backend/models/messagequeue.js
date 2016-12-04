@@ -37,6 +37,7 @@ function MessageRouting(message){
 	case 'Heater':
 		switch(splitMessage[1]){
 		case 'Temperature':
+            
 			heatertemperature = splitMessage[2] 
 			break
 		}
@@ -44,9 +45,9 @@ function MessageRouting(message){
 	}
 }
 
-function getHeaterTemperature()
+function getHeaterTemperature(_callback)
 {
-    return heatertemperature
+    return _callback(heatertemperature)
 }
 
 module.exports.sendmsgtoRaspberry = sendmsgtoRaspberry
