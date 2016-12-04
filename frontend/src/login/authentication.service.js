@@ -16,7 +16,7 @@
 		}
 
 		function checkAuthComplete(response) {
-			return response.data.status
+			return response.data
 		}
 
 		function checkAuthError(error) {

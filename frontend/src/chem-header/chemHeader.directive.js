@@ -7,7 +7,9 @@
 	function chemHeader() {
 		return {
 			restrict: 'E',
-			templateUrl: 'frontend/src/chem-header/chem-header.html'
+			templateUrl: 'frontend/src/chem-header/chem-header.html',
+			controller: 'loginController',
+			controllerAs: 'lc'
 		}
 	}
 })()

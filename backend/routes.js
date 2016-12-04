@@ -48,18 +48,20 @@ module.exports = (app, passport) => {
 	app.get('/login/facebook/return',
 	passport.authenticate('facebook', { failureRedirect: '/research', scope : ['email'] }),
 	(req, res) => {
-		res.redirect('/home')
+		res.redirect('/research')
 	})
 
 
 	app.get('/logout', (req, res) => {
-		req.session.destroy()
-		res.json({'status' : 'logged out'})
+		req.logout()
+		res.redirect('/home')
 	})
 
 	app.get('/checkAuth', (req, res) => {
+
+		//console.log(req.user);
 		if (req.isAuthenticated()) {
-			res.json({'status' : 'authenticated'})
+			res.json({'status' : 'authenticated', 'user' : req.user.fb})
 		} else {
 			res.json({'status' : 'unauthenticated'})
 		}
