@@ -14,13 +14,17 @@
 					</td>
 				<tr data-ng-controller="temperatureController">
 						<td>Temperature Interval: </td>
-						<td><input name="myInput" ng-model="interval" required placeholder="{{placeholder}}"></td>
-						<td><input type="button" value="OK" ng-click="setTemperatureTime()" data-ng-init="initTemperatureTime()"/></td>
+						<td>
+							<input name="myInput" class="data-input-field" ng-model="interval" required placeholder="{{placeholder}}">
+							<input type="button" class="save-button" value="save" ng-click="setTemperatureTime()" data-ng-init="initTemperatureTime()"/>
+						</td>
 				</tr>
 					<tr data-ng-controller="temperatureController">
 							<td>Temperature Control: </td>
-							<td><input name="myInput" ng-model="settedTemperature" required ></td>
-							<td><input type="button" ng-click="setHeaterTemperature()"  value="OK" /></td>
+							<td>
+								<input name="myInput" class="data-input-field"  ng-model="settedTemperature" required >
+								<input type="button" class="save-button" ng-click="setHeaterTemperature()"  value="save" />
+							</td>
 					</tr>
 				</tr>
 				<tr data-ng-controller="temperatureController">
