@@ -2,38 +2,50 @@
 	var app = angular.module('kemia-app')
 	app.controller('chartController', chartController)
 
-	chartController.$inject = ['$scope', 'chartFactory','$interval']
+	chartController.$inject = ['$scope', 'chartFactory', 'moment','$interval']
 
-	function chartController($scope, chartFactory,$interval) {
+	function chartController($scope, chartFactory, moment,$interval)
+	{
 		let temp=this
+		let sensorid = 1
+		let val = 26*60*60*1000
+		
 		temp.temperature=0.0
 
-		getTemperatureInterval().then(() => {})
+		$scope.getVal = function(value)
+		{
+			sensorid = 1
+			val = value
+			getTemperatureInterval()
+		}
 
 		$interval(getTemperatureInterval, 30000)
 
-
-		function getTemperatureInterval() {
-			return chartFactory.getTemperatureInterval(1, new Date().getTime()-24*60*60*1000, new Date().getTime())
+		function getTemperatureInterval()
+		{	
+			var datefrom = new moment().valueOf()-val
+			var dateto = new moment().valueOf()		
+			return chartFactory.getTemperatureInterval(sensorid, datefrom, dateto)
 			.then((data) => {
-
+				console.log('itt ujra',sensorid,datefrom,dateto)
 				$scope.tempV = []
 				$scope.tempD = []
-
-				var temporaryTemperatures = []
-				var temporaryDates = []
-				for (var i = 1; i < data.length; i += 1) {
-					var date = (new Date(parseInt(data[i].tempdate)).toISOString().split('.'))[0].replace('T',' ')
-					if(temporaryTemperatures[temporaryTemperatures.length-1] != data[i].tempvalue){
+				let temporaryTemperatures = []
+				let temporaryDates = []
+				for (let i = 1; i < data.length; i += 1)
+				{
+					let date = (new moment(parseInt(data[i].tempdate)).toISOString().split('.'))[0].replace('T',' ')
+					if(temporaryTemperatures[temporaryTemperatures.length-1] != data[i].tempvalue)
+					{
 						temporaryTemperatures.push(data[i].tempvalue)
-						temporaryDates.push(date)
+						temporaryDates.push(moment(date).format('YY/MM/DD, h:mm:ss a'))
 					}
-
 				}
 				$scope.tempV = [temporaryTemperatures]
 				$scope.tempD = temporaryDates
 
-				$scope.onClick = function (points, evt) {
+				$scope.onClick = function (points, evt)
+				{
 					console.info(points, evt)
 				}
 				$scope.datasetOverride = [{ yAxisID: 'y-axis-1' }]

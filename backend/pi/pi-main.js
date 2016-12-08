@@ -1,3 +1,5 @@
+var messagequeue = require('../models/messagequeue-pi')
+
 // load the pi ap module 
 var PiApp = require('./pi-app')
 
@@ -20,7 +22,7 @@ var heatsourcedevice = new HeatSourceDevice()
 // create a new instance 
 // with the exernal dependencies 
 // db, devices, gateway 
-var piapp = new PiApp(db, temperaturedevice, heatsourcedevice, gateway) 
+var piapp = new PiApp(db, temperaturedevice, heatsourcedevice, gateway, messagequeue) 
 
 // Initialize the pi app 
 piapp.init()

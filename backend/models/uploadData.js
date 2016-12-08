@@ -17,7 +17,8 @@ mongoose.connection.on('error', (error) => {
 
 // connect to database on mongolab
 // ujj mongo : mongodb://heroku_1v5ndzf5:jhh1cjdvneikc2p77n0b3n32j7@ds113938.mlab.com:13938/heroku_1v5ndzf5
-mongoose.connect('mongodb://heroku_hww55rc1:2ic4cjhncvmlse83a21lnejpru@ds139187.mlab.com:39187/heroku_hww55rc1',function(err) {
+//regi mongo kemiasoke :mongodb://heroku_hww55rc1:2ic4cjhncvmlse83a21lnejpru@ds139187.mlab.com:39187/heroku_hww55rc1
+mongoose.connect('mongodb://heroku_1v5ndzf5:jhh1cjdvneikc2p77n0b3n32j7@ds113938.mlab.com:13938/heroku_1v5ndzf5',function(err) {
 	if (err) console.error('erros:' + err)
 })
 
@@ -42,11 +43,18 @@ function createAliveMessage(rid,td,_callback){
 		alivedate : td
 	})
 
-	a.save(function(err) {
+	Alive.find((error, alivedata) => {
+		if(alivedata.length != 0){
+			alivedata[0].remove();
+		}
+		
+		a.save(function(err) {
 		if (err) 
 			return _callback(err)
-	})
+		})
 	return _callback(null)
+	})
+	
 }
 
 
