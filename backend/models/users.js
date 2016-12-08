@@ -8,7 +8,8 @@ let userSchema = new Schema({
 		id: String,
 		access_token: String,
 		name: String,
-		email: String
+		email: String,
+		picUrl: String
 	},
 })
 

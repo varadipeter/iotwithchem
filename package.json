@@ -9,6 +9,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "start-pi": "sudo node backend/pi/pi.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "gulp build"
   },
@@ -24,6 +25,9 @@
     "angular-chart.js": "^1.0.3",
     "angular-mocks": "^1.5.8",
     "angular-ui-router": "^0.3.1",
+    "angular-moment": "^1.0.1",
+    "angular-momentjs": "^0.2.2",
+    "amqplib": "^0.5.1",
     "babel-preset-latest": "^6.16.0",
     "bourbon": "4.2.7",
     "bourbon-neat": "^1.7.0",
@@ -57,5 +61,8 @@
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",
     "protractor": "^4.0.10"
+  },
+  "devDependencies": {
+    "eslint": "^3.10.2"
   }
 }
