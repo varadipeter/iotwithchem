@@ -17,7 +17,7 @@ script:
   # build web files
   - npm install
   # login to Heroku registry
-  - docker login -e="varadipeter9@gmail.com" -u="varadipeter" -p="12345678" registry.heroku.com
+  - docker login -e="varadipeter9@gmail.com" -u="varadipeter" -p="7eaaf161-01de-4de6-9938-a464d3aa4c64" registry.heroku.com
   # build Docker image
   - docker build -t registry.heroku.com/iotwithchemdocker/web .
   # push Docker image to Heroku registry
