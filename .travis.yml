@@ -16,7 +16,6 @@ services:
 script:
   # build web files
   - npm install
-  - gulp deploy
   # login to Heroku registry
   - docker login -e="varadipeter9@gmail.com" -u="varadipeter" -p="12345678" registry.heroku.com
   # build Docker image
