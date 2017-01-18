@@ -10,10 +10,13 @@ language: node
 services:
   - docker
 
+before_install: 
+  - if [[ `npm -v` != 3* ]]; then npm i -g npm@3; fi
 # main script
 # for the push to work, the variables below must be set
 # pushes to Heroku registry, app goes live from there
 script:
+  
   # build web files
   - npm install
   # login to Heroku registry
